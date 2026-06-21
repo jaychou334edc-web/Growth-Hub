@@ -1,0 +1,48 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+
+    <permission
+        android:name="com.growthhub.permission.READ_STATS"
+        android:protectionLevel="normal" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_home"
+        android:label="@string/app_name"
+        android:theme="@style/Theme.GrowthHub">
+        <activity android:name=".ui.achievement.AchievementActivity" />
+        <activity android:name=".ui.quote.QuoteActivity" />
+        <activity android:name=".ui.countdown.CountdownActivity" />
+        <activity android:name=".ui.task.TagActivity" />
+        <activity android:name=".ui.task.TaskActivity" />
+        <activity android:name=".ui.category.CategoryActivity" />
+        <activity android:name=".MainActivity" />
+        <activity
+            android:name=".SplashActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name=".service.FocusService"
+            android:exported="false"
+            android:foregroundServiceType="dataSync" />
+
+        <receiver
+            android:name=".receiver.ReminderReceiver"
+            android:exported="false" />
+
+        <provider
+            android:name=".provider.StatsProvider"
+            android:authorities="growthhub"
+            android:exported="true"
+            android:readPermission="com.growthhub.permission.READ_STATS" />
+    </application>
+</manifest>

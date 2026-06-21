@@ -1,0 +1,21 @@
+# Gradle
+.gradle/
+build/
+*/build/
+
+# Android Studio / IntelliJ local files
+.idea/
+*.iml
+
+# Local machine configuration
+local.properties
+
+# Generated outputs and scratch work
+outputs/
+work/
+.agents/
+.codex/
+
+# OS files
+.DS_Store
+Thumbs.db

@@ -1,0 +1,7 @@
+<resources>
+    <color name="growth_primary">#2E7D68</color>
+    <color name="growth_primary_dark">#1E5A4B</color>
+    <color name="growth_accent">#D89A3A</color>
+    <color name="growth_surface">#F7F8F5</color>
+    <color name="growth_text">#17201D</color>
+</resources>
