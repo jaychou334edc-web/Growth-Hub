@@ -5,8 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,21 +20,33 @@ import com.growthhub.database.repository.FocusRepository;
 import com.growthhub.database.repository.QuoteRepository;
 import com.growthhub.database.repository.StatisticsRepository;
 import com.growthhub.util.TimeUtils;
-import com.growthhub.util.UiUtils;
 
 import java.util.List;
 
 public class HomeFragment extends Fragment {
-    private LinearLayout content;
+    private TextView todayDuration;
+    private TextView weekDuration;
+    private TextView activeRate;
+    private TextView quote;
+    private TextView latestAchievement;
+    private TextView recentFocus;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ScrollView scrollView = new ScrollView(requireContext());
-        content = new LinearLayout(requireContext());
-        content.setOrientation(LinearLayout.VERTICAL);
-        scrollView.addView(content);
-        return scrollView;
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        todayDuration = view.findViewById(R.id.home_today_duration);
+        weekDuration = view.findViewById(R.id.home_week_duration);
+        activeRate = view.findViewById(R.id.home_active_rate);
+        quote = view.findViewById(R.id.home_quote);
+        latestAchievement = view.findViewById(R.id.home_latest_achievement);
+        recentFocus = view.findViewById(R.id.home_recent_focus);
+        Button start = view.findViewById(R.id.home_start_focus);
+        start.setOnClickListener(v -> {
+            com.google.android.material.bottomnavigation.BottomNavigationView nav = requireActivity().findViewById(R.id.main_bottom_nav);
+            nav.setSelectedItemId(R.id.nav_focus);
+        });
+        return view;
     }
 
     @Override
@@ -45,27 +56,18 @@ public class HomeFragment extends Fragment {
     }
 
     private void render() {
-        content.removeAllViews();
         StatisticsRepository stats = new StatisticsRepository(requireContext());
         FocusRepository focus = new FocusRepository(requireContext());
         QuoteRepository quoteRepository = new QuoteRepository(requireContext());
         Achievement latest = new AchievementDao(GrowthHubDbHelper.getInstance(requireContext())).getLatestUnlocked();
         List<FocusRecord> recent = focus.getRecent(1);
 
-        content.addView(UiUtils.title(requireContext(), "Growth Hub"));
-        content.addView(UiUtils.text(requireContext(), "今日专注：" + TimeUtils.formatDuration(stats.engine().todayDuration()), 18));
-        content.addView(UiUtils.text(requireContext(), "本周专注：" + TimeUtils.formatDuration(stats.engine().weekDuration()), 18));
-        content.addView(UiUtils.text(requireContext(), "近30天活跃率：" + stats.engine().activeRate30DaysPercent() + "%", 18));
-        content.addView(UiUtils.text(requireContext(), "励志语录：" + quoteRepository.randomQuote(), 16));
-        content.addView(UiUtils.text(requireContext(), "最近成就：" + (latest == null ? "暂无" : latest.title), 16));
+        todayDuration.setText(TimeUtils.formatDuration(stats.engine().todayDuration()));
+        weekDuration.setText(TimeUtils.formatDuration(stats.engine().weekDuration()));
+        activeRate.setText(stats.engine().activeRate30DaysPercent() + "%");
+        quote.setText(quoteRepository.randomQuote());
+        latestAchievement.setText("最近成就：" + (latest == null ? "暂无" : latest.title));
         String recentText = recent.isEmpty() ? "暂无" : TimeUtils.formatDateTime(recent.get(0).startTime) + " " + TimeUtils.formatDuration(recent.get(0).duration);
-        content.addView(UiUtils.text(requireContext(), "最近专注：" + recentText, 16));
-
-        Button start = UiUtils.button(requireContext(), "开始专注");
-        start.setOnClickListener(v -> {
-            com.google.android.material.bottomnavigation.BottomNavigationView nav = requireActivity().findViewById(R.id.main_bottom_nav);
-            nav.setSelectedItemId(R.id.nav_focus);
-        });
-        content.addView(start);
+        recentFocus.setText("最近专注：" + recentText);
     }
 }

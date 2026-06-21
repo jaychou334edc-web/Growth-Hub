@@ -1,7 +1,27 @@
 <resources>
     <color name="growth_primary">#2E7D68</color>
     <color name="growth_primary_dark">#1E5A4B</color>
+    <color name="growth_secondary">#4B6F8C</color>
     <color name="growth_accent">#D89A3A</color>
+    <color name="growth_background">#F7F8F5</color>
     <color name="growth_surface">#F7F8F5</color>
+    <color name="growth_surface_card">#FFFFFF</color>
+    <color name="growth_surface_variant">#E7EFEA</color>
     <color name="growth_text">#17201D</color>
+    <color name="growth_text_secondary">#65736E</color>
+    <color name="growth_success">#2E7D68</color>
+    <color name="growth_warning">#D89A3A</color>
+    <color name="growth_error">#BA3F3F</color>
+    <color name="focus_bg_top">#08110F</color>
+    <color name="focus_bg_mid">#10221D</color>
+    <color name="focus_bg_bottom">#17251F</color>
+    <color name="focus_glass">#26FFFFFF</color>
+    <color name="focus_glass_strong">#3AFFFFFF</color>
+    <color name="focus_glass_stroke">#40FFFFFF</color>
+    <color name="focus_timer_start">#43D39E</color>
+    <color name="focus_timer_end">#D8B45A</color>
+    <color name="focus_text_primary">#F4FFF9</color>
+    <color name="focus_text_secondary">#B8C9C1</color>
+    <color name="focus_text_muted">#7F968C</color>
+    <color name="focus_danger">#FF8A80</color>
 </resources>

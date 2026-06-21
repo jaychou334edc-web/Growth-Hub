@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,6 +20,7 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.growthhub.R;
 import com.growthhub.database.repository.StatisticsRepository;
 import com.growthhub.model.StatItem;
 import com.growthhub.util.TimeUtils;
@@ -32,49 +33,43 @@ public class StatisticsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ScrollView scrollView = new ScrollView(requireContext());
-        LinearLayout root = new LinearLayout(requireContext());
-        root.setOrientation(LinearLayout.VERTICAL);
-        scrollView.addView(root);
+        View root = inflater.inflate(R.layout.fragment_statistics, container, false);
 
         StatisticsRepository repo = new StatisticsRepository(requireContext());
-        root.addView(UiUtils.title(requireContext(), "统计中心"));
-        root.addView(UiUtils.text(requireContext(), "今日：" + TimeUtils.formatDuration(repo.engine().todayDuration()), 16));
-        root.addView(UiUtils.text(requireContext(), "本周：" + TimeUtils.formatDuration(repo.engine().weekDuration()), 16));
-        root.addView(UiUtils.text(requireContext(), "本月：" + TimeUtils.formatDuration(repo.engine().monthDuration()), 16));
-        root.addView(UiUtils.text(requireContext(), "累计：" + TimeUtils.formatDuration(repo.engine().totalDuration()), 16));
-        root.addView(UiUtils.text(requireContext(), "次数：" + repo.engine().totalCount(), 16));
-        root.addView(UiUtils.text(requireContext(), "平均：" + TimeUtils.formatDuration(repo.engine().averageDuration()), 16));
-        root.addView(UiUtils.text(requireContext(), "近30天活跃率：" + repo.engine().activeRate30DaysPercent() + "%", 16));
-        root.addView(UiUtils.text(requireContext(), "本月专注率：" + repo.engine().monthFocusRatePercent() + "%", 16));
+        ((TextView) root.findViewById(R.id.stat_today)).setText("今日\n" + TimeUtils.formatDuration(repo.engine().todayDuration()));
+        ((TextView) root.findViewById(R.id.stat_week)).setText("本周\n" + TimeUtils.formatDuration(repo.engine().weekDuration()));
+        ((TextView) root.findViewById(R.id.stat_month)).setText("本月\n" + TimeUtils.formatDuration(repo.engine().monthDuration()));
+        ((TextView) root.findViewById(R.id.stat_total)).setText("累计\n" + TimeUtils.formatDuration(repo.engine().totalDuration()));
+        ((TextView) root.findViewById(R.id.stat_count)).setText("次数\n" + repo.engine().totalCount());
+        ((TextView) root.findViewById(R.id.stat_average)).setText("平均\n" + TimeUtils.formatDuration(repo.engine().averageDuration()));
+        ((TextView) root.findViewById(R.id.stat_active_rate)).setText("近30天活跃率：" + repo.engine().activeRate30DaysPercent() + "%");
+        ((TextView) root.findViewById(R.id.stat_month_rate)).setText("本月专注率：" + repo.engine().monthFocusRatePercent() + "%");
 
         List<StatItem> daily = repo.recentDailyDurations(7);
-        LineChart lineChart = new LineChart(requireContext());
-        lineChart.setMinimumHeight(UiUtils.dp(requireContext(), 220));
+        LineChart lineChart = root.findViewById(R.id.stat_line_chart);
         lineChart.setData(lineData(daily));
         lineChart.getDescription().setText("近7天折线图");
-        root.addView(lineChart);
 
         List<StatItem> ranking = repo.engine().taskRanking(0);
-        BarChart barChart = new BarChart(requireContext());
-        barChart.setMinimumHeight(UiUtils.dp(requireContext(), 220));
+        BarChart barChart = root.findViewById(R.id.stat_bar_chart);
         barChart.setData(barData(ranking));
         barChart.getDescription().setText("任务柱状图");
-        root.addView(barChart);
 
-        root.addView(UiUtils.subtitle(requireContext(), "任务排行"));
-        for (StatItem item : ranking) {
-            root.addView(UiUtils.text(requireContext(), item.label + "：" + TimeUtils.formatDuration(item.value), 15));
+        fillRanking(root.findViewById(R.id.stat_task_ranking), ranking);
+        fillRanking(root.findViewById(R.id.stat_category_ranking), repo.engine().categoryRanking(0));
+        fillRanking(root.findViewById(R.id.stat_tag_ranking), repo.engine().tagRanking(0));
+        return root;
+    }
+
+    private void fillRanking(LinearLayout container, List<StatItem> items) {
+        container.removeAllViews();
+        if (items.isEmpty()) {
+            container.addView(UiUtils.text(requireContext(), "暂无数据", 15));
+            return;
         }
-        root.addView(UiUtils.subtitle(requireContext(), "分类排行"));
-        for (StatItem item : repo.engine().categoryRanking(0)) {
-            root.addView(UiUtils.text(requireContext(), item.label + "：" + TimeUtils.formatDuration(item.value), 15));
+        for (StatItem item : items) {
+            container.addView(UiUtils.text(requireContext(), item.label + "：" + TimeUtils.formatDuration(item.value), 15));
         }
-        root.addView(UiUtils.subtitle(requireContext(), "标签排行"));
-        for (StatItem item : repo.engine().tagRanking(0)) {
-            root.addView(UiUtils.text(requireContext(), item.label + "：" + TimeUtils.formatDuration(item.value), 15));
-        }
-        return scrollView;
     }
 
     private LineData lineData(List<StatItem> daily) {

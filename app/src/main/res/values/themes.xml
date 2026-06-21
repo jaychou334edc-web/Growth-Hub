@@ -2,9 +2,28 @@
     <style name="Theme.GrowthHub" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/growth_primary</item>
         <item name="colorPrimaryDark">@color/growth_primary_dark</item>
+        <item name="colorSecondary">@color/growth_secondary</item>
         <item name="colorAccent">@color/growth_accent</item>
+        <item name="colorSurface">@color/growth_surface_card</item>
+        <item name="colorOnSurface">@color/growth_text</item>
+        <item name="android:windowBackground">@color/growth_background</item>
         <item name="android:fontFamily">sans</item>
         <item name="android:windowLightStatusBar">true</item>
-        <item name="android:navigationBarColor">@android:color/white</item>
+        <item name="android:statusBarColor">@color/growth_background</item>
+        <item name="android:navigationBarColor">@color/growth_surface_card</item>
+        <item name="materialButtonStyle">@style/Widget.GrowthHub.Button</item>
+        <item name="textInputStyle">@style/Widget.GrowthHub.TextInput</item>
+    </style>
+
+    <style name="Widget.GrowthHub.Button" parent="Widget.MaterialComponents.Button">
+        <item name="cornerRadius">16dp</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="Widget.GrowthHub.TextInput" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxCornerRadiusTopStart">16dp</item>
+        <item name="boxCornerRadiusTopEnd">16dp</item>
+        <item name="boxCornerRadiusBottomStart">16dp</item>
+        <item name="boxCornerRadiusBottomEnd">16dp</item>
     </style>
 </resources>

@@ -1,0 +1,14 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <gradient
+        android:type="radial"
+        android:centerX="50%"
+        android:centerY="42%"
+        android:gradientRadius="170dp"
+        android:startColor="@color/focus_timer_start"
+        android:centerColor="@color/focus_glass_strong"
+        android:endColor="@color/focus_bg_mid" />
+    <stroke
+        android:width="2dp"
+        android:color="@color/focus_glass_stroke" />
+</shape>
