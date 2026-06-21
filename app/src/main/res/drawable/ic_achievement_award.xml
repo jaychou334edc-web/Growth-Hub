@@ -1,0 +1,9 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="28dp"
+    android:height="28dp"
+    android:viewportWidth="28"
+    android:viewportHeight="28">
+    <path
+        android:fillColor="@color/achievement_gold"
+        android:pathData="M14,2C8.48,2 4,6.48 4,12C4,15.28 5.58,18.19 8.02,20.01L7,26L14,22.7L21,26L19.98,20.01C22.42,18.19 24,15.28 24,12C24,6.48 19.52,2 14,2ZM14,6.2L15.76,9.77L19.7,10.34L16.85,13.12L17.52,17.04L14,15.19L10.48,17.04L11.15,13.12L8.3,10.34L12.24,9.77L14,6.2Z" />
+</vector>

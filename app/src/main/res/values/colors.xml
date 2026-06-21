@@ -56,4 +56,21 @@
     <color name="stat_heat_2">#33936D</color>
     <color name="stat_heat_3">#45D69D</color>
     <color name="stat_heat_4">#A8FFD3</color>
+    <color name="achievement_bg_top">#090B10</color>
+    <color name="achievement_bg_mid">#141B18</color>
+    <color name="achievement_bg_bottom">#221A12</color>
+    <color name="achievement_glass">#24FFFFFF</color>
+    <color name="achievement_glass_strong">#36FFFFFF</color>
+    <color name="achievement_stroke">#42FFFFFF</color>
+    <color name="achievement_text_primary">#FFF9EC</color>
+    <color name="achievement_text_secondary">#D8CCB5</color>
+    <color name="achievement_text_muted">#9D927F</color>
+    <color name="achievement_gold">#F3C969</color>
+    <color name="achievement_gold_soft">#80F3C969</color>
+    <color name="achievement_gold_dark">#8E6426</color>
+    <color name="achievement_bronze">#C98552</color>
+    <color name="achievement_silver">#CBD3DA</color>
+    <color name="achievement_legend">#D9A7FF</color>
+    <color name="achievement_locked">#6E6A64</color>
+    <color name="achievement_success">#55DFA5</color>
 </resources>
