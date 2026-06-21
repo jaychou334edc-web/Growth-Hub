@@ -24,4 +24,18 @@
     <color name="focus_text_secondary">#B8C9C1</color>
     <color name="focus_text_muted">#7F968C</color>
     <color name="focus_danger">#FF8A80</color>
+    <color name="home_bg_top">#07100E</color>
+    <color name="home_bg_mid">#10201C</color>
+    <color name="home_bg_bottom">#18251F</color>
+    <color name="home_surface_glass">#24FFFFFF</color>
+    <color name="home_surface_glass_strong">#36FFFFFF</color>
+    <color name="home_stroke_glass">#40FFFFFF</color>
+    <color name="home_text_primary">#F6FFF9</color>
+    <color name="home_text_secondary">#BACCC3</color>
+    <color name="home_text_muted">#81978D</color>
+    <color name="home_accent_green">#45D69D</color>
+    <color name="home_accent_blue">#77A7FF</color>
+    <color name="home_accent_gold">#E0B85E</color>
+    <color name="home_accent_coral">#FF8F80</color>
+    <color name="home_timeline_dot">#8CF1C0</color>
 </resources>
