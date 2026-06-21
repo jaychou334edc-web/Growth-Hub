@@ -1,262 +1,340 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/stat_scroll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/growth_background"
+    android:background="@drawable/bg_stat_root_premium"
+    android:clipToPadding="false"
     android:fillViewport="true">
 
     <LinearLayout
+        android:id="@+id/stat_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="统计中心"
-            android:textColor="@color/growth_text"
-            android:textSize="26sp"
-            android:textStyle="bold" />
+        android:paddingStart="20dp"
+        android:paddingTop="20dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="112dp">
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/stat_hero_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:cardBackgroundColor="@color/growth_surface_card"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="1dp">
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardCornerRadius="32dp"
+            app:cardElevation="16dp"
+            app:strokeColor="@color/stat_stroke"
+            app:strokeWidth="1dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/bg_stat_hero_gradient"
+                android:minHeight="220dp"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="20dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="专注概览"
-                    android:textColor="@color/growth_text"
+                    android:text="Analytics"
+                    android:textColor="@color/stat_text_secondary"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
-                <GridLayout
+                <TextView
+                    android:id="@+id/stat_total_focus"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:columnCount="2">
-
-                    <TextView
-                        android:id="@+id/stat_today"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_columnWeight="1"
-                        android:background="@drawable/bg_stat_chip"
-                        android:layout_margin="4dp"
-                        android:padding="12dp"
-                        android:textColor="@color/growth_text"
-                        android:textSize="15sp" />
-
-                    <TextView
-                        android:id="@+id/stat_week"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_columnWeight="1"
-                        android:background="@drawable/bg_stat_chip"
-                        android:layout_margin="4dp"
-                        android:padding="12dp"
-                        android:textColor="@color/growth_text"
-                        android:textSize="15sp" />
-
-                    <TextView
-                        android:id="@+id/stat_month"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_columnWeight="1"
-                        android:background="@drawable/bg_stat_chip"
-                        android:layout_margin="4dp"
-                        android:padding="12dp"
-                        android:textColor="@color/growth_text"
-                        android:textSize="15sp" />
-
-                    <TextView
-                        android:id="@+id/stat_total"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_columnWeight="1"
-                        android:background="@drawable/bg_stat_chip"
-                        android:layout_margin="4dp"
-                        android:padding="12dp"
-                        android:textColor="@color/growth_text"
-                        android:textSize="15sp" />
-
-                    <TextView
-                        android:id="@+id/stat_count"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_columnWeight="1"
-                        android:background="@drawable/bg_stat_chip"
-                        android:layout_margin="4dp"
-                        android:padding="12dp"
-                        android:textColor="@color/growth_text"
-                        android:textSize="15sp" />
-
-                    <TextView
-                        android:id="@+id/stat_average"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_columnWeight="1"
-                        android:background="@drawable/bg_stat_chip"
-                        android:layout_margin="4dp"
-                        android:padding="12dp"
-                        android:textColor="@color/growth_text"
-                        android:textSize="15sp" />
-                </GridLayout>
+                    android:layout_marginTop="18dp"
+                    android:autoSizeMaxTextSize="56sp"
+                    android:autoSizeMinTextSize="38sp"
+                    android:autoSizeStepGranularity="1sp"
+                    android:autoSizeTextType="uniform"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:text="0h"
+                    android:textColor="@color/stat_text_primary"
+                    android:textSize="56sp"
+                    android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/stat_active_rate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:textColor="@color/growth_text_secondary"
-                    android:textSize="15sp" />
+                    android:text="Total Focus Time"
+                    android:textColor="@color/stat_text_secondary"
+                    android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/stat_month_rate"
+                    android:id="@+id/stat_week_trend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="38dp"
+                    android:layout_marginTop="14dp"
+                    android:background="@drawable/bg_stat_metric_pill"
+                    android:gravity="center"
+                    android:minWidth="148dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:text="No weekly trend yet"
+                    android:textColor="@color/stat_text_primary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:textColor="@color/growth_text_secondary"
-                    android:textSize="15sp" />
+                    android:layout_marginTop="14dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/stat_current_streak"
+                        android:layout_width="0dp"
+                        android:layout_height="44dp"
+                        android:layout_marginEnd="6dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_stat_metric_pill"
+                        android:gravity="center"
+                        android:textColor="@color/stat_text_primary"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/stat_active_rate"
+                        android:layout_width="0dp"
+                        android:layout_height="44dp"
+                        android:layout_marginStart="6dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_stat_metric_pill"
+                        android:gravity="center"
+                        android:textColor="@color/stat_text_primary"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/stat_trend_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:cardBackgroundColor="@color/growth_surface_card"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="1dp">
+            android:layout_marginTop="20dp"
+            app:cardBackgroundColor="@color/stat_glass"
+            app:cardCornerRadius="28dp"
+            app:cardElevation="8dp"
+            app:strokeColor="@color/stat_stroke"
+            app:strokeWidth="1dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="12dp">
+                android:padding="18dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="6dp"
-                    android:text="近7天趋势"
-                    android:textColor="@color/growth_text"
-                    android:textSize="18sp"
+                    android:text="Weekly Focus Trend"
+                    android:textColor="@color/stat_text_primary"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <com.github.mikephil.charting.charts.LineChart
                     android:id="@+id/stat_line_chart"
                     android:layout_width="match_parent"
-                    android:layout_height="240dp" />
+                    android:layout_height="240dp"
+                    android:layout_marginTop="12dp" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/stat_heatmap_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:cardBackgroundColor="@color/growth_surface_card"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="1dp">
+            android:layout_marginTop="18dp"
+            app:cardBackgroundColor="@color/stat_glass"
+            app:cardCornerRadius="28dp"
+            app:cardElevation="8dp"
+            app:strokeColor="@color/stat_stroke"
+            app:strokeWidth="1dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="12dp">
+                android:padding="18dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="6dp"
-                    android:text="任务柱状图"
-                    android:textColor="@color/growth_text"
-                    android:textSize="18sp"
+                    android:text="Activity Heatmap"
+                    android:textColor="@color/stat_text_primary"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <GridLayout
+                    android:id="@+id/stat_heatmap_grid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:columnCount="10"
+                    android:rowCount="3" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:text="Insights"
+            android:textColor="@color/stat_text_primary"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/stat_insights_grid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <include
+                    android:id="@+id/stat_insight_task"
+                    layout="@layout/item_stat_insight"
+                    android:layout_width="0dp"
+                    android:layout_height="128dp"
+                    android:layout_marginEnd="6dp"
+                    android:layout_weight="1" />
+
+                <include
+                    android:id="@+id/stat_insight_day"
+                    layout="@layout/item_stat_insight"
+                    android:layout_width="0dp"
+                    android:layout_height="128dp"
+                    android:layout_marginStart="6dp"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal">
+
+                <include
+                    android:id="@+id/stat_insight_category"
+                    layout="@layout/item_stat_insight"
+                    android:layout_width="0dp"
+                    android:layout_height="128dp"
+                    android:layout_marginEnd="6dp"
+                    android:layout_weight="1" />
+
+                <include
+                    android:id="@+id/stat_insight_tag"
+                    layout="@layout/item_stat_insight"
+                    android:layout_width="0dp"
+                    android:layout_height="128dp"
+                    android:layout_marginStart="6dp"
+                    android:layout_weight="1" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/stat_achievement_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            app:cardBackgroundColor="@color/stat_glass"
+            app:cardCornerRadius="28dp"
+            app:cardElevation="8dp"
+            app:strokeColor="@color/stat_stroke"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="20dp">
+
+                <com.growthhub.ui.statistics.CircularProgressView
+                    android:id="@+id/stat_achievement_ring"
+                    android:layout_width="112dp"
+                    android:layout_height="112dp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="18dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Achievement Progress"
+                        android:textColor="@color/stat_text_primary"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/stat_achievement_count"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/stat_text_secondary"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/stat_achievement_percent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:textColor="@color/stat_accent_gold"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/stat_distribution_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            app:cardBackgroundColor="@color/stat_glass"
+            app:cardCornerRadius="28dp"
+            app:cardElevation="8dp"
+            app:strokeColor="@color/stat_stroke"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="18dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Focus Distribution"
+                    android:textColor="@color/stat_text_primary"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <com.github.mikephil.charting.charts.BarChart
                     android:id="@+id/stat_bar_chart"
                     android:layout_width="match_parent"
-                    android:layout_height="240dp" />
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:cardBackgroundColor="@color/growth_surface_card"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="1dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="排行"
-                    android:textColor="@color/growth_text"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:text="任务排行"
-                    android:textColor="@color/growth_text_secondary"
-                    android:textSize="14sp" />
-
-                <LinearLayout
-                    android:id="@+id/stat_task_ranking"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:text="分类排行"
-                    android:textColor="@color/growth_text_secondary"
-                    android:textSize="14sp" />
-
-                <LinearLayout
-                    android:id="@+id/stat_category_ranking"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:text="标签排行"
-                    android:textColor="@color/growth_text_secondary"
-                    android:textSize="14sp" />
-
-                <LinearLayout
-                    android:id="@+id/stat_tag_ranking"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical" />
+                    android:layout_height="240dp"
+                    android:layout_marginTop="12dp" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
-</ScrollView>
+</androidx.core.widget.NestedScrollView>

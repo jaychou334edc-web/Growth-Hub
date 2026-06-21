@@ -38,4 +38,22 @@
     <color name="home_accent_gold">#E0B85E</color>
     <color name="home_accent_coral">#FF8F80</color>
     <color name="home_timeline_dot">#8CF1C0</color>
+    <color name="stat_bg_top">#070C12</color>
+    <color name="stat_bg_mid">#101B24</color>
+    <color name="stat_bg_bottom">#14251F</color>
+    <color name="stat_glass">#24FFFFFF</color>
+    <color name="stat_glass_strong">#36FFFFFF</color>
+    <color name="stat_stroke">#42FFFFFF</color>
+    <color name="stat_text_primary">#F5FFF9</color>
+    <color name="stat_text_secondary">#B8CBC4</color>
+    <color name="stat_text_muted">#7F968E</color>
+    <color name="stat_accent_green">#45D69D</color>
+    <color name="stat_accent_blue">#77A7FF</color>
+    <color name="stat_accent_gold">#E0B85E</color>
+    <color name="stat_accent_coral">#FF8F80</color>
+    <color name="stat_heat_0">#1E302B</color>
+    <color name="stat_heat_1">#285D4D</color>
+    <color name="stat_heat_2">#33936D</color>
+    <color name="stat_heat_3">#45D69D</color>
+    <color name="stat_heat_4">#A8FFD3</color>
 </resources>
