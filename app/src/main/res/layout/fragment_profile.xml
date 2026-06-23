@@ -1,32 +1,343 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/profile_scroll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/growth_background"
+    android:background="@drawable/bg_profile_root"
+    android:clipToPadding="false"
     android:fillViewport="true">
 
     <LinearLayout
+        android:id="@+id/profile_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:paddingStart="20dp"
+        android:paddingTop="20dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="112dp">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/profile_hero_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardCornerRadius="32dp"
+            app:cardElevation="16dp"
+            app:strokeColor="@color/profile_stroke"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_profile_hero_gradient"
+                android:minHeight="280dp"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:background="@drawable/bg_profile_icon_circle"
+                        android:gravity="center"
+                        android:text="GH"
+                        android:textColor="@color/profile_accent_green"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="14dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Growth Explorer"
+                            android:textColor="@color/profile_text_primary"
+                            android:textSize="24sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/profile_growth_level"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="Level 1 · Starter"
+                            android:textColor="@color/profile_text_secondary"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/profile_total_focus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="22dp"
+                    android:autoSizeMaxTextSize="52sp"
+                    android:autoSizeMinTextSize="34sp"
+                    android:autoSizeStepGranularity="1sp"
+                    android:autoSizeTextType="uniform"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:text="0s"
+                    android:textColor="@color/profile_text_primary"
+                    android:textSize="52sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/profile_growth_score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="38dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/bg_profile_metric_pill"
+                    android:gravity="center"
+                    android:minWidth="156dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:text="Growth Score · 0"
+                    android:textColor="@color/profile_accent_gold"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/profile_current_streak"
+                        android:layout_width="0dp"
+                        android:layout_height="46dp"
+                        android:layout_marginEnd="6dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_profile_metric_pill"
+                        android:gravity="center"
+                        android:textColor="@color/profile_text_primary"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/profile_achievement_count"
+                        android:layout_width="0dp"
+                        android:layout_height="46dp"
+                        android:layout_marginStart="6dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_profile_metric_pill"
+                        android:gravity="center"
+                        android:textColor="@color/profile_text_primary"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="我的"
-            android:textColor="@color/growth_text"
-            android:textSize="26sp"
+            android:layout_marginTop="22dp"
+            android:text="Quick Stats"
+            android:textColor="@color/profile_text_primary"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
-        <com.google.android.material.card.MaterialCardView
+        <LinearLayout
+            android:id="@+id/profile_stats_grid"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:cardBackgroundColor="@color/growth_surface_card"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="1dp">
+            android:layout_marginTop="12dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/profile_stat_focus"
+                    android:layout_width="0dp"
+                    android:layout_height="104dp"
+                    android:layout_marginEnd="6dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_profile_glass_card"
+                    android:gravity="center"
+                    android:textColor="@color/profile_text_primary"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/profile_stat_sessions"
+                    android:layout_width="0dp"
+                    android:layout_height="104dp"
+                    android:layout_marginStart="6dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_profile_glass_card"
+                    android:gravity="center"
+                    android:textColor="@color/profile_text_primary"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/profile_stat_active"
+                    android:layout_width="0dp"
+                    android:layout_height="104dp"
+                    android:layout_marginEnd="6dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_profile_glass_card"
+                    android:gravity="center"
+                    android:textColor="@color/profile_text_primary"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/profile_stat_categories"
+                    android:layout_width="0dp"
+                    android:layout_height="104dp"
+                    android:layout_marginStart="6dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_profile_glass_card"
+                    android:gravity="center"
+                    android:textColor="@color/profile_text_primary"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/profile_summary_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            app:cardBackgroundColor="@color/profile_glass"
+            app:cardCornerRadius="28dp"
+            app:cardElevation="8dp"
+            app:strokeColor="@color/profile_stroke"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Growth Summary"
+                    android:textColor="@color/profile_text_primary"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/profile_summary_category"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:textColor="@color/profile_text_secondary"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/profile_summary_day"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/profile_text_secondary"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/profile_summary_longest"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/profile_text_secondary"
+                    android:textSize="15sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/profile_achievement"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            app:cardBackgroundColor="@color/profile_glass"
+            app:cardCornerRadius="28dp"
+            app:cardElevation="8dp"
+            app:strokeColor="@color/profile_stroke"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="20dp">
+
+                <TextView
+                    android:layout_width="54dp"
+                    android:layout_height="54dp"
+                    android:background="@drawable/bg_profile_icon_circle"
+                    android:gravity="center"
+                    android:text="★"
+                    android:textColor="@color/profile_accent_gold"
+                    android:textSize="26sp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/profile_achievement_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Achievement Snapshot"
+                        android:textColor="@color/profile_text_primary"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/profile_achievement_desc"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:textColor="@color/profile_text_secondary"
+                        android:textSize="14sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/profile_management_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            app:cardBackgroundColor="@color/profile_glass"
+            app:cardCornerRadius="28dp"
+            app:cardElevation="8dp"
+            app:strokeColor="@color/profile_stroke"
+            app:strokeWidth="1dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -34,15 +345,27 @@
                 android:orientation="vertical"
                 android:padding="12dp">
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="8dp"
+                    android:paddingTop="8dp"
+                    android:paddingEnd="8dp"
+                    android:paddingBottom="6dp"
+                    android:text="Management Center"
+                    android:textColor="@color/profile_text_primary"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/profile_category"
                     style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:gravity="start|center_vertical"
-                    android:text="分类管理"
+                    android:text="Category Management"
                     android:textAlignment="viewStart"
-                    android:textColor="@color/growth_text" />
+                    android:textColor="@color/profile_text_primary" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/profile_task"
@@ -50,9 +373,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:gravity="start|center_vertical"
-                    android:text="任务管理"
+                    android:text="Task Management"
                     android:textAlignment="viewStart"
-                    android:textColor="@color/growth_text" />
+                    android:textColor="@color/profile_text_primary" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/profile_tag"
@@ -60,9 +383,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:gravity="start|center_vertical"
-                    android:text="标签管理"
+                    android:text="Tag Management"
                     android:textAlignment="viewStart"
-                    android:textColor="@color/growth_text" />
+                    android:textColor="@color/profile_text_primary" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/profile_countdown"
@@ -70,9 +393,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:gravity="start|center_vertical"
-                    android:text="倒数日管理"
+                    android:text="Countdown"
                     android:textAlignment="viewStart"
-                    android:textColor="@color/growth_text" />
+                    android:textColor="@color/profile_text_primary" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/profile_quote"
@@ -80,38 +403,147 @@
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:gravity="start|center_vertical"
-                    android:text="语录管理"
+                    android:text="Quotes"
                     android:textAlignment="viewStart"
-                    android:textColor="@color/growth_text" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/profile_achievement"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="52dp"
-                    android:gravity="start|center_vertical"
-                    android:text="成就中心"
-                    android:textAlignment="viewStart"
-                    android:textColor="@color/growth_text" />
+                    android:textColor="@color/profile_text_primary" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/profile_data_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:cardBackgroundColor="@color/growth_surface_variant"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="0dp">
+            android:layout_marginTop="18dp"
+            app:cardBackgroundColor="@color/profile_glass"
+            app:cardCornerRadius="28dp"
+            app:cardElevation="8dp"
+            app:strokeColor="@color/profile_stroke"
+            app:strokeWidth="1dp">
 
-            <TextView
-                android:id="@+id/profile_provider_info"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:text="ContentProvider: content://growthhub/focus&#10;权限: com.growthhub.permission.READ_STATS"
-                android:textColor="@color/growth_text_secondary"
-                android:textSize="14sp" />
+                android:orientation="vertical"
+                android:padding="12dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Data Center"
+                        android:textColor="@color/profile_text_primary"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="64dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/bg_profile_beta_pill"
+                        android:gravity="center"
+                        android:text="BETA"
+                        android:textColor="@color/profile_accent_coral"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/profile_export"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:gravity="start|center_vertical"
+                    android:text="Export Data"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/profile_text_primary" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/profile_backup"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:gravity="start|center_vertical"
+                    android:text="Backup"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/profile_text_primary" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/profile_restore"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:gravity="start|center_vertical"
+                    android:text="Restore"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/profile_text_primary" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/profile_settings_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            app:cardBackgroundColor="@color/profile_glass"
+            app:cardCornerRadius="28dp"
+            app:cardElevation="8dp"
+            app:strokeColor="@color/profile_stroke"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="12dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="8dp"
+                    android:paddingTop="8dp"
+                    android:paddingEnd="8dp"
+                    android:paddingBottom="6dp"
+                    android:text="Settings"
+                    android:textColor="@color/profile_text_primary"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/profile_notification"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:gravity="start|center_vertical"
+                    android:text="Notification"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/profile_text_primary" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/profile_about"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:gravity="start|center_vertical"
+                    android:text="About"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/profile_text_primary" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/profile_theme"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:gravity="start|center_vertical"
+                    android:text="Theme"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/profile_text_primary" />
+            </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
-</ScrollView>
+</androidx.core.widget.NestedScrollView>
