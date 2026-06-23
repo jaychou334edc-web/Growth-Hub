@@ -1,0 +1,7 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <gradient
+        android:angle="270"
+        android:startColor="@color/history_bg_top"
+        android:centerColor="@color/history_bg_mid"
+        android:endColor="@color/history_bg_bottom" />
+</shape>
