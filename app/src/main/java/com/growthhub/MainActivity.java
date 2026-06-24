@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -29,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         containerId = View.generateViewId();
         LinearLayout root = new LinearLayout(this);
         root.setOrientation(LinearLayout.VERTICAL);
-        root.setBackgroundColor(0xFFF7F8F5);
+        root.setBackgroundColor(ContextCompat.getColor(this, R.color.main_background));
 
         FrameLayout container = new FrameLayout(this);
         container.setId(containerId);

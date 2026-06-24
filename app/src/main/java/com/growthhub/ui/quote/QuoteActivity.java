@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.growthhub.R;
 import com.growthhub.database.repository.QuoteRepository;
 import com.growthhub.util.UiUtils;
 
@@ -25,15 +26,15 @@ public class QuoteActivity extends AppCompatActivity {
         LinearLayout root = new LinearLayout(this);
         root.setOrientation(LinearLayout.VERTICAL);
         scrollView.addView(root);
-        root.addView(UiUtils.title(this, "励志语录"));
+        root.addView(UiUtils.title(this, getString(R.string.quote_title)));
         quote = UiUtils.text(this, "", 18);
         root.addView(quote);
         EditText input = new EditText(this);
-        input.setHint("新增用户语录");
+        input.setHint(R.string.quote_input_hint);
         root.addView(input);
-        Button add = UiUtils.button(this, "保存语录");
+        Button add = UiUtils.button(this, getString(R.string.quote_save));
         root.addView(add);
-        Button refresh = UiUtils.button(this, "随机显示");
+        Button refresh = UiUtils.button(this, getString(R.string.quote_random));
         root.addView(refresh);
         setContentView(scrollView);
 

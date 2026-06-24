@@ -39,7 +39,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="数据洞察"
+                    android:text="@string/statistics_analytics"
                     android:textColor="@color/stat_text_secondary"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -55,7 +55,7 @@
                     android:autoSizeTextType="uniform"
                     android:includeFontPadding="false"
                     android:maxLines="1"
-                    android:text="0h"
+                    android:text="@string/common_hours_zero"
                     android:textColor="@color/stat_text_primary"
                     android:textSize="56sp"
                     android:textStyle="bold" />
@@ -64,7 +64,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="累计专注时长"
+                    android:text="@string/statistics_total_focus_time"
                     android:textColor="@color/stat_text_secondary"
                     android:textSize="16sp" />
 
@@ -78,7 +78,7 @@
                     android:minWidth="148dp"
                     android:paddingStart="16dp"
                     android:paddingEnd="16dp"
-                    android:text="暂无周趋势"
+                    android:text="@string/statistics_no_weekly_trend"
                     android:textColor="@color/stat_text_primary"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -136,7 +136,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="本周专注趋势"
+                    android:text="@string/statistics_weekly_trend"
                     android:textColor="@color/stat_text_primary"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -169,7 +169,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="活跃热力图"
+                    android:text="@string/statistics_activity_heatmap"
                     android:textColor="@color/stat_text_primary"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -188,7 +188,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="22dp"
-            android:text="洞察"
+            android:text="@string/statistics_insights"
             android:textColor="@color/stat_text_primary"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -279,7 +279,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="成就进度"
+                        android:text="@string/statistics_achievement_progress"
                         android:textColor="@color/stat_text_primary"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -324,7 +324,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="专注分布"
+                    android:text="@string/statistics_focus_distribution"
                     android:textColor="@color/stat_text_primary"
                     android:textSize="20sp"
                     android:textStyle="bold" />

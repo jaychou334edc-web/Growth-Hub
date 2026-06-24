@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.growthhub.R;
 import com.growthhub.constant.TaskStatus;
 import com.growthhub.database.entity.Category;
 import com.growthhub.database.entity.TaskItem;
@@ -35,20 +36,20 @@ public class TaskActivity extends AppCompatActivity {
         LinearLayout root = new LinearLayout(this);
         root.setOrientation(LinearLayout.VERTICAL);
         scrollView.addView(root);
-        root.addView(UiUtils.title(this, "任务管理"));
+        root.addView(UiUtils.title(this, getString(R.string.task_title)));
 
         categorySpinner = new Spinner(this);
         root.addView(categorySpinner);
         EditText title = new EditText(this);
-        title.setHint("任务标题");
+        title.setHint(R.string.task_title_hint);
         root.addView(title);
         EditText description = new EditText(this);
-        description.setHint("任务描述");
+        description.setHint(R.string.task_description_hint);
         root.addView(description);
         EditText tags = new EditText(this);
-        tags.setHint("关联标签ID，逗号分隔，例如 1,2");
+        tags.setHint(R.string.task_tags_hint);
         root.addView(tags);
-        Button add = UiUtils.button(this, "新增任务");
+        Button add = UiUtils.button(this, getString(R.string.task_add));
         root.addView(add);
         list = new LinearLayout(this);
         list.setOrientation(LinearLayout.VERTICAL);
@@ -62,7 +63,7 @@ public class TaskActivity extends AppCompatActivity {
             title.setText("");
             description.setText("");
             tags.setText("");
-            Toast.makeText(this, "任务已创建", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.task_created, Toast.LENGTH_SHORT).show();
             render();
         });
         render();
@@ -80,12 +81,12 @@ public class TaskActivity extends AppCompatActivity {
             LinearLayout row = new LinearLayout(this);
             row.setOrientation(LinearLayout.VERTICAL);
             row.addView(UiUtils.text(this, "#" + task.id + " " + task.title + " [" + TaskStatus.label(task.status) + "]\n" + task.description, 15));
-            Button complete = UiUtils.button(this, "标记完成");
+            Button complete = UiUtils.button(this, getString(R.string.task_complete));
             complete.setOnClickListener(v -> {
                 repository.completeTask(task.id);
                 render();
             });
-            Button archive = UiUtils.button(this, "归档任务");
+            Button archive = UiUtils.button(this, getString(R.string.task_archive));
             archive.setOnClickListener(v -> {
                 repository.archiveTask(task.id);
                 render();

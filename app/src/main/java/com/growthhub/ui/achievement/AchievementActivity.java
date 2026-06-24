@@ -21,12 +21,12 @@ import com.growthhub.database.entity.Achievement;
 import com.growthhub.database.helper.GrowthHubDbHelper;
 import com.growthhub.database.repository.StatisticsRepository;
 import com.growthhub.statistics.StatisticsEngine;
+import com.growthhub.util.DurationFormatter;
 import com.growthhub.util.TimeUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 
 public class AchievementActivity extends AppCompatActivity {
     private View content;
@@ -139,14 +139,13 @@ public class AchievementActivity extends AppCompatActivity {
 
         int total = achievements.size();
         int percent = total == 0 ? 0 : unlocked * 100 / total;
-        unlockedCount.setText(String.format(Locale.getDefault(), "%d / %d", unlocked, total));
-        progressLabel.setText("完成 " + percent + "%");
-        raritySummary.setText(String.format(Locale.getDefault(),
-                "青铜 %d · 白银 %d · 黄金 %d · 传奇 %d", bronze, silver, gold, legend));
+        unlockedCount.setText(getString(R.string.achievement_unlocked_count, unlocked, total));
+        progressLabel.setText(getString(R.string.statistics_complete_percent, percent));
+        raritySummary.setText(getString(R.string.achievement_rarity_summary, bronze, silver, gold, legend));
         if (rarestUnlocked == null) {
-            rareUnlocked.setText("稀有成就：完成第一次专注即可领取徽章。");
+            rareUnlocked.setText(R.string.achievement_rare_empty);
         } else {
-            rareUnlocked.setText("稀有成就：" + tierLabel(rarestUnlocked.tier) + " · " + rarestUnlocked.achievement.title);
+            rareUnlocked.setText(getString(R.string.achievement_rare_unlocked, tierLabel(rarestUnlocked.tier), rarestUnlocked.achievement.title));
         }
         progressRing.animateTo(percent);
     }
@@ -161,8 +160,8 @@ public class AchievementActivity extends AppCompatActivity {
         }
 
         if (next == null) {
-            nextTitle.setText("已解锁全部奖章");
-            nextProgress.setText("当前所有成就都已领取。");
+            nextTitle.setText(R.string.achievement_all_unlocked);
+            nextProgress.setText(R.string.achievement_all_claimed);
             nextBar.setProgressCompat(100, true);
             return;
         }
@@ -174,10 +173,10 @@ public class AchievementActivity extends AppCompatActivity {
 
     private void renderCategories(List<AchievementAdapter.DisplayItem> items) {
         categoriesRow.removeAllViews();
-        addCategory("专注时长", countByType(items, AchievementCondition.TOTAL_SECONDS));
-        addCategory("持续性", countByType(items, AchievementCondition.ACTIVE_RATE_PERCENT));
-        addCategory("任务完成", 0);
-        addCategory("特殊里程碑", countByType(items, AchievementCondition.FIRST_FOCUS));
+        addCategory(getString(R.string.achievement_category_focus_time), countByType(items, AchievementCondition.TOTAL_SECONDS));
+        addCategory(getString(R.string.achievement_category_consistency), countByType(items, AchievementCondition.ACTIVE_RATE_PERCENT));
+        addCategory(getString(R.string.achievement_category_task_completion), 0);
+        addCategory(getString(R.string.achievement_category_special), countByType(items, AchievementCondition.FIRST_FOCUS));
     }
 
     private void addCategory(String title, int count) {
@@ -189,7 +188,7 @@ public class AchievementActivity extends AppCompatActivity {
         chip.setGravity(android.view.Gravity.CENTER_VERTICAL);
         chip.setMinWidth(dp(154));
         chip.setPadding(dp(16), 0, dp(16), 0);
-        chip.setText(title + "\n" + count + " 枚奖章");
+        chip.setText(title + "\n" + getString(R.string.achievement_awards_count, count));
         chip.setTextColor(ContextCompat.getColor(this, R.color.achievement_text_primary));
         chip.setTextSize(14);
         chip.setTypeface(chip.getTypeface(), android.graphics.Typeface.BOLD);
@@ -210,7 +209,7 @@ public class AchievementActivity extends AppCompatActivity {
         Collections.sort(unlocked, (left, right) -> Long.compare(right.unlockTime, left.unlockTime));
         LayoutInflater inflater = LayoutInflater.from(this);
         if (unlocked.isEmpty()) {
-            addTimelineItem(inflater, "暂无解锁记录", "完成一次专注，开启你的奖章时间线。");
+            addTimelineItem(inflater, getString(R.string.achievement_no_unlocks), getString(R.string.achievement_unlock_timeline_hint));
             return;
         }
         int limit = Math.min(5, unlocked.size());
@@ -251,12 +250,15 @@ public class AchievementActivity extends AppCompatActivity {
         long target = achievement.conditionValue;
         long remaining = Math.max(0, target - current);
         if (achievement.conditionType == AchievementCondition.TOTAL_SECONDS) {
-            return formatHours(current) + " / " + formatHours(target) + " · 还差 " + formatHours(remaining);
+            return getString(R.string.achievement_remaining_duration,
+                    DurationFormatter.format(current),
+                    DurationFormatter.format(target),
+                    DurationFormatter.format(remaining));
         }
         if (achievement.conditionType == AchievementCondition.ACTIVE_RATE_PERCENT) {
-            return current + "% / " + target + "% · 还差 " + remaining + "%";
+            return getString(R.string.achievement_remaining_percent, current, target, remaining);
         }
-        return current + " / " + target + " 次专注 · 还差 " + remaining;
+        return getString(R.string.achievement_remaining_sessions, current, target, remaining);
     }
 
     private String tierName(Achievement achievement) {
@@ -288,19 +290,10 @@ public class AchievementActivity extends AppCompatActivity {
     }
 
     private String tierLabel(String tier) {
-        if ("Legend".equals(tier)) return "传奇";
-        if ("Gold".equals(tier)) return "黄金";
-        if ("Silver".equals(tier)) return "白银";
-        return "青铜";
-    }
-
-    private String formatHours(long seconds) {
-        long hours = seconds / 3600;
-        long minutes = (seconds % 3600) / 60;
-        if (hours > 0 && minutes > 0) return hours + "h " + minutes + "m";
-        if (hours > 0) return hours + "h";
-        if (minutes > 0) return minutes + "m";
-        return seconds + "s";
+        if ("Legend".equals(tier)) return getString(R.string.achievement_tier_legend);
+        if ("Gold".equals(tier)) return getString(R.string.achievement_tier_gold);
+        if ("Silver".equals(tier)) return getString(R.string.achievement_tier_silver);
+        return getString(R.string.achievement_tier_bronze);
     }
 
     private void animatePage() {

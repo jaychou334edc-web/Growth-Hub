@@ -1,6 +1,5 @@
 package com.growthhub.ui.statistics;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,12 +31,12 @@ import com.growthhub.database.entity.Achievement;
 import com.growthhub.database.helper.GrowthHubDbHelper;
 import com.growthhub.database.repository.StatisticsRepository;
 import com.growthhub.model.StatItem;
+import com.growthhub.util.DurationFormatter;
 import com.growthhub.util.TimeUtils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 
 public class StatisticsFragment extends Fragment {
     private View content;
@@ -94,9 +93,9 @@ public class StatisticsFragment extends Fragment {
         List<StatItem> tagRanking = repo.engine().tagRanking(0);
         List<Achievement> achievements = new AchievementDao(GrowthHubDbHelper.getInstance(requireContext())).getAll();
 
-        totalFocus.setText(formatHeroDuration(repo.engine().totalDuration()));
-        currentStreak.setText("连续专注 · " + currentStreak(daily30) + " 天");
-        activeRate.setText("活跃率 · " + repo.engine().activeRate30DaysPercent() + "%");
+        totalFocus.setText(DurationFormatter.format(repo.engine().totalDuration()));
+        currentStreak.setText(getString(R.string.statistics_streak_days, currentStreak(daily30)));
+        activeRate.setText(getString(R.string.statistics_active_rate, repo.engine().activeRate30DaysPercent()));
         weekTrend.setText(weeklyTrendText(daily14));
 
         styleLineChart(lineChart);
@@ -117,14 +116,14 @@ public class StatisticsFragment extends Fragment {
         StatItem topCategory = first(categoryRanking);
         StatItem topTag = first(tagRanking);
         StatItem bestDay = bestDay(daily7);
-        bindInsight(root, R.id.stat_insight_task, "最专注任务", topTask == null ? "暂无数据" : topTask.label,
-                topTask == null ? "开始一次专注" : TimeUtils.formatDuration(topTask.value));
-        bindInsight(root, R.id.stat_insight_day, "最高效日期", bestDay == null ? "暂无数据" : shortDate(bestDay.label),
-                bestDay == null ? "暂无活跃记录" : TimeUtils.formatDuration(bestDay.value));
-        bindInsight(root, R.id.stat_insight_category, "最高频分类", topCategory == null ? "暂无数据" : topCategory.label,
-                topCategory == null ? "暂无分类记录" : TimeUtils.formatDuration(topCategory.value));
-        bindInsight(root, R.id.stat_insight_tag, "最高频标签", topTag == null ? "暂无数据" : topTag.label,
-                topTag == null ? "暂无标签记录" : TimeUtils.formatDuration(topTag.value));
+        bindInsight(root, R.id.stat_insight_task, getString(R.string.statistics_most_focused_task), topTask == null ? getString(R.string.common_no_data) : topTask.label,
+                topTask == null ? getString(R.string.statistics_start_session) : DurationFormatter.format(topTask.value));
+        bindInsight(root, R.id.stat_insight_day, getString(R.string.statistics_most_productive_day), bestDay == null ? getString(R.string.common_no_data) : shortDate(bestDay.label),
+                bestDay == null ? getString(R.string.statistics_no_activity) : DurationFormatter.format(bestDay.value));
+        bindInsight(root, R.id.stat_insight_category, getString(R.string.statistics_top_category), topCategory == null ? getString(R.string.common_no_data) : topCategory.label,
+                topCategory == null ? getString(R.string.statistics_no_category) : DurationFormatter.format(topCategory.value));
+        bindInsight(root, R.id.stat_insight_tag, getString(R.string.statistics_top_tag), topTag == null ? getString(R.string.common_no_data) : topTag.label,
+                topTag == null ? getString(R.string.statistics_no_tag) : DurationFormatter.format(topTag.value));
     }
 
     private void bindInsight(View root, int id, String title, String value, String metric) {
@@ -141,8 +140,8 @@ public class StatisticsFragment extends Fragment {
         }
         int total = achievements.size();
         int percent = total == 0 ? 0 : unlocked * 100 / total;
-        achievementCount.setText("已解锁 " + unlocked + " · 总计 " + total);
-        achievementPercent.setText("完成 " + percent + "%");
+        achievementCount.setText(getString(R.string.statistics_unlocked_total, unlocked, total));
+        achievementPercent.setText(getString(R.string.statistics_complete_percent, percent));
         achievementRing.setProgress(percent);
     }
 
@@ -178,7 +177,7 @@ public class StatisticsFragment extends Fragment {
         for (int i = 0; i < daily.size(); i++) {
             entries.add(new Entry(i, daily.get(i).value / 60f));
         }
-        LineDataSet set = new LineDataSet(entries, "分钟");
+        LineDataSet set = new LineDataSet(entries, getString(R.string.statistics_minutes));
         set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
         set.setCubicIntensity(0.18f);
         set.setColor(color(R.color.stat_accent_green));
@@ -200,7 +199,7 @@ public class StatisticsFragment extends Fragment {
         for (int i = 0; i < size; i++) {
             entries.add(new BarEntry(i, ranking.get(i).value / 60f));
         }
-        BarDataSet set = new BarDataSet(entries, "分钟");
+        BarDataSet set = new BarDataSet(entries, getString(R.string.statistics_minutes));
         set.setColor(color(R.color.stat_accent_blue));
         set.setValueTextColor(color(R.color.stat_text_secondary));
         set.setValueTextSize(10f);
@@ -210,7 +209,7 @@ public class StatisticsFragment extends Fragment {
     }
 
     private void styleLineChart(LineChart chart) {
-        chart.setNoDataText("暂无专注数据");
+        chart.setNoDataText(getString(R.string.statistics_no_focus_data));
         chart.setNoDataTextColor(color(R.color.stat_text_secondary));
         chart.setDrawGridBackground(false);
         chart.setDrawBorders(false);
@@ -233,7 +232,7 @@ public class StatisticsFragment extends Fragment {
     }
 
     private void styleBarChart(BarChart chart, List<StatItem> ranking) {
-        chart.setNoDataText("暂无分布数据");
+        chart.setNoDataText(getString(R.string.statistics_no_distribution_data));
         chart.setNoDataTextColor(color(R.color.stat_text_secondary));
         chart.setDrawGridBackground(false);
         chart.setDrawBorders(false);
@@ -255,24 +254,24 @@ public class StatisticsFragment extends Fragment {
 
     private void styleAxis(YAxis axis) {
         axis.setDrawAxisLine(false);
-        axis.setGridColor(Color.argb(38, 255, 255, 255));
+        axis.setGridColor(color(R.color.stat_axis_grid));
         axis.setTextColor(color(R.color.stat_text_muted));
         axis.setAxisMinimum(0f);
     }
 
     private String weeklyTrendText(List<StatItem> daily14) {
-        if (daily14.size() < 14) return "暂无周趋势";
+        if (daily14.size() < 14) return getString(R.string.statistics_no_weekly_trend);
         long previous = 0;
         long current = 0;
         for (int i = 0; i < daily14.size(); i++) {
             if (i < 7) previous += daily14.get(i).value;
             else current += daily14.get(i).value;
         }
-        if (previous == 0 && current == 0) return "暂无周趋势";
-        if (previous == 0) return "↑ 新的专注周";
+        if (previous == 0 && current == 0) return getString(R.string.statistics_no_weekly_trend);
+        if (previous == 0) return getString(R.string.statistics_new_focus_week);
         int percent = (int) Math.round((current - previous) * 100.0 / previous);
         String arrow = percent >= 0 ? "↑ " : "↓ ";
-        return arrow + "较上周 " + Math.abs(percent) + "%";
+        return getString(R.string.statistics_vs_last_week, arrow, Math.abs(percent));
     }
 
     private int currentStreak(List<StatItem> days) {
@@ -296,16 +295,8 @@ public class StatisticsFragment extends Fragment {
         return items.isEmpty() ? null : items.get(0);
     }
 
-    private String formatHeroDuration(long seconds) {
-        long hours = seconds / 3600;
-        long minutes = (seconds % 3600) / 60;
-        if (hours > 0) return String.format(Locale.getDefault(), "%dh %02dm", hours, minutes);
-        if (minutes > 0) return minutes + "m";
-        return seconds + "s";
-    }
-
     private String shortDate(String label) {
-        if (label == null || label.length() < 5) return "今日";
+        if (label == null || label.length() < 5) return getString(R.string.common_today);
         return label.substring(Math.max(0, label.length() - 5));
     }
 

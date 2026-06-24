@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.growthhub.R;
 import com.growthhub.database.entity.Category;
 import com.growthhub.database.repository.TaskRepository;
 import com.growthhub.util.UiUtils;
@@ -27,14 +28,14 @@ public class CategoryActivity extends AppCompatActivity {
         root.setOrientation(LinearLayout.VERTICAL);
         scrollView.addView(root);
 
-        root.addView(UiUtils.title(this, "分类管理"));
+        root.addView(UiUtils.title(this, getString(R.string.category_title)));
         EditText name = new EditText(this);
-        name.setHint("分类名称");
+        name.setHint(R.string.category_name_hint);
         root.addView(name);
         EditText description = new EditText(this);
-        description.setHint("描述");
+        description.setHint(R.string.category_description_hint);
         root.addView(description);
-        Button add = UiUtils.button(this, "新增分类");
+        Button add = UiUtils.button(this, getString(R.string.category_add));
         root.addView(add);
         list = new LinearLayout(this);
         list.setOrientation(LinearLayout.VERTICAL);
@@ -46,7 +47,7 @@ public class CategoryActivity extends AppCompatActivity {
             repository.createCategory(name.getText().toString().trim(), description.getText().toString().trim());
             name.setText("");
             description.setText("");
-            Toast.makeText(this, "已新增", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.category_created, Toast.LENGTH_SHORT).show();
             renderList();
         });
         renderList();

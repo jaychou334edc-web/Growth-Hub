@@ -11,6 +11,7 @@ import android.widget.Spinner;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.growthhub.R;
 import com.growthhub.database.entity.CountdownEvent;
 import com.growthhub.database.repository.CountdownRepository;
 import com.growthhub.util.TimeUtils;
@@ -34,22 +35,22 @@ public class CountdownActivity extends AppCompatActivity {
         LinearLayout root = new LinearLayout(this);
         root.setOrientation(LinearLayout.VERTICAL);
         scrollView.addView(root);
-        root.addView(UiUtils.title(this, "倒数日"));
+        root.addView(UiUtils.title(this, getString(R.string.countdown_title)));
 
         EditText title = new EditText(this);
-        title.setHint("标题，例如 距离考研");
+        title.setHint(R.string.countdown_title_hint);
         root.addView(title);
         EditText date = new EditText(this);
-        date.setHint("目标日期 yyyy-MM-dd");
+        date.setHint(R.string.countdown_date_hint);
         root.addView(date);
         EditText description = new EditText(this);
-        description.setHint("描述");
+        description.setHint(R.string.countdown_description_hint);
         root.addView(description);
         Spinner remind = new Spinner(this);
         List<Integer> days = Arrays.asList(0, 1, 3, 7);
         remind.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, days));
         root.addView(remind);
-        Button add = UiUtils.button(this, "新增倒数日");
+        Button add = UiUtils.button(this, getString(R.string.countdown_add));
         root.addView(add);
         list = new LinearLayout(this);
         list.setOrientation(LinearLayout.VERTICAL);
@@ -78,9 +79,9 @@ public class CountdownActivity extends AppCompatActivity {
             long daysLeft = (event.targetDate - now) / (24L * 60L * 60L * 1000L);
             LinearLayout row = new LinearLayout(this);
             row.setOrientation(LinearLayout.VERTICAL);
-            row.addView(UiUtils.text(this, event.title + "\n目标：" + TimeUtils.formatDate(event.targetDate) +
-                    "\n剩余：" + daysLeft + "天\n提醒：提前" + event.remindDaysBefore + "天", 15));
-            Button delete = UiUtils.button(this, "删除");
+            row.addView(UiUtils.text(this, event.title + "\n" +
+                    getString(R.string.countdown_item, TimeUtils.formatDate(event.targetDate), daysLeft, event.remindDaysBefore), 15));
+            Button delete = UiUtils.button(this, getString(R.string.common_delete));
             delete.setOnClickListener(v -> {
                 repository.delete(event.id);
                 render();

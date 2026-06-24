@@ -7,6 +7,10 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
+
+import com.growthhub.R;
+
 public final class UiUtils {
     private UiUtils() {
     }
@@ -27,7 +31,7 @@ public final class UiUtils {
         TextView view = new TextView(context);
         view.setText(text);
         view.setTextSize(sp);
-        view.setTextColor(0xFF17201D);
+        view.setTextColor(ContextCompat.getColor(context, R.color.legacy_ui_text));
         view.setPadding(dp(context, 16), dp(context, 8), dp(context, 16), dp(context, 8));
         view.setLayoutParams(new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,

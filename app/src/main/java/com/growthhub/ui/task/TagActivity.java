@@ -9,6 +9,7 @@ import android.widget.ScrollView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.growthhub.R;
 import com.growthhub.database.entity.Tag;
 import com.growthhub.database.repository.TaskRepository;
 import com.growthhub.util.UiUtils;
@@ -25,11 +26,11 @@ public class TagActivity extends AppCompatActivity {
         LinearLayout root = new LinearLayout(this);
         root.setOrientation(LinearLayout.VERTICAL);
         scrollView.addView(root);
-        root.addView(UiUtils.title(this, "标签管理"));
+        root.addView(UiUtils.title(this, getString(R.string.tag_title)));
         EditText name = new EditText(this);
-        name.setHint("标签名称");
+        name.setHint(R.string.tag_name_hint);
         root.addView(name);
-        Button add = UiUtils.button(this, "新增标签");
+        Button add = UiUtils.button(this, getString(R.string.tag_add));
         root.addView(add);
         list = new LinearLayout(this);
         list.setOrientation(LinearLayout.VERTICAL);
@@ -52,7 +53,7 @@ public class TagActivity extends AppCompatActivity {
             LinearLayout row = new LinearLayout(this);
             row.setOrientation(LinearLayout.VERTICAL);
             row.addView(UiUtils.text(this, "#" + tag.id + " " + tag.name, 15));
-            Button delete = UiUtils.button(this, "删除该标签");
+            Button delete = UiUtils.button(this, getString(R.string.tag_delete));
             delete.setOnClickListener(v -> {
                 repository.deleteTag(tag.id);
                 renderList();

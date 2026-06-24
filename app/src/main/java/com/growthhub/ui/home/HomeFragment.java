@@ -30,11 +30,11 @@ import com.growthhub.database.repository.TaskRepository;
 import com.growthhub.model.StatItem;
 import com.growthhub.ui.countdown.CountdownActivity;
 import com.growthhub.ui.task.TaskActivity;
+import com.growthhub.util.DurationFormatter;
 import com.growthhub.util.TimeUtils;
 
 import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 
 public class HomeFragment extends Fragment {
     private TextView greeting;
@@ -109,13 +109,13 @@ public class HomeFragment extends Fragment {
         Achievement latest = achievementDao.getLatestUnlocked();
 
         greeting.setText(greetingText());
-        todayDuration.setText(formatDashboardDuration(todaySeconds));
-        streak.setText("连续专注 · " + currentStreak(stats.recentDailyDurations(30)) + " 天");
+        todayDuration.setText(DurationFormatter.format(todaySeconds));
+        streak.setText(getString(R.string.home_current_streak_days, currentStreak(stats.recentDailyDurations(30))));
         quote.setText(quoteRepository.randomQuote());
-        renderKpi(R.id.home_kpi_focus, "今日专注", TimeUtils.formatDuration(todaySeconds));
-        renderKpi(R.id.home_kpi_tasks, "已完成任务", String.valueOf(countCompletedTasks(tasks)));
-        renderKpi(R.id.home_kpi_activity, "活跃率", stats.engine().activeRate30DaysPercent() + "%");
-        renderKpi(R.id.home_kpi_achievements, "成就", countUnlocked(achievements) + "/" + achievements.size());
+        renderKpi(R.id.home_kpi_focus, getString(R.string.home_kpi_focus_today), DurationFormatter.format(todaySeconds));
+        renderKpi(R.id.home_kpi_tasks, getString(R.string.home_kpi_completed_tasks), String.valueOf(countCompletedTasks(tasks)));
+        renderKpi(R.id.home_kpi_activity, getString(R.string.home_kpi_active_rate), stats.engine().activeRate30DaysPercent() + "%");
+        renderKpi(R.id.home_kpi_achievements, getString(R.string.home_kpi_achievements), countUnlocked(achievements) + "/" + achievements.size());
         renderAchievement(latest);
         renderRecentFocus(recent, taskRepository);
         renderCountdown(countdowns);
@@ -134,25 +134,25 @@ public class HomeFragment extends Fragment {
 
     private void renderAchievement(Achievement latest) {
         if (latest == null) {
-            latestAchievement.setText("暂无成就");
-            latestAchievementDesc.setText("完成一次专注即可解锁你的第一枚徽章。");
+            latestAchievement.setText(R.string.home_no_achievement_yet);
+            latestAchievementDesc.setText(R.string.home_unlock_first_badge);
             return;
         }
         latestAchievement.setText(latest.title);
-        latestAchievementDesc.setText(latest.description == null ? "最近解锁" : latest.description);
+        latestAchievementDesc.setText(latest.description == null ? getString(R.string.home_recently_unlocked) : latest.description);
     }
 
     private void renderRecentFocus(List<FocusRecord> records, TaskRepository taskRepository) {
         recentFocusList.removeAllViews();
         LayoutInflater inflater = LayoutInflater.from(requireContext());
         if (records.isEmpty()) {
-            addTimelineItem(inflater, "暂无专注记录", "开始一次专注，建立你的成长时间线。");
+            addTimelineItem(inflater, getString(R.string.home_no_focus_sessions), getString(R.string.home_start_session_timeline));
             return;
         }
         for (FocusRecord record : records) {
             TaskItem task = taskRepository.getTask(record.taskId);
-            String title = task == null ? "专注记录" : task.title;
-            String meta = TimeUtils.formatDuration(record.duration) + " · " + TimeUtils.formatDateTime(record.startTime);
+            String title = task == null ? getString(R.string.home_focus_record) : task.title;
+            String meta = DurationFormatter.format(record.duration) + " · " + TimeUtils.formatDateTime(record.startTime);
             addTimelineItem(inflater, title, meta);
         }
     }
@@ -174,15 +174,15 @@ public class HomeFragment extends Fragment {
             }
         }
         if (next == null) {
-            countdownTitle.setText("倒数日提醒");
+            countdownTitle.setText(R.string.home_countdown_highlight);
             countdownDays.setText("--");
-            countdownMeta.setText("暂无即将到来的事项。添加一个目标，让计划更清晰。");
+            countdownMeta.setText(R.string.home_countdown_empty_meta);
             return;
         }
         long days = Math.max(0, (next.targetDate - TimeUtils.startOfToday()) / (24L * 60L * 60L * 1000L));
         countdownTitle.setText(next.title);
         countdownDays.setText(String.valueOf(days));
-        countdownMeta.setText("剩余天数 · " + TimeUtils.formatDate(next.targetDate));
+        countdownMeta.setText(getString(R.string.home_days_left, TimeUtils.formatDate(next.targetDate)));
     }
 
     private int countCompletedTasks(List<TaskItem> tasks) {
@@ -215,24 +215,9 @@ public class HomeFragment extends Fragment {
 
     private String greetingText() {
         int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-        if (hour < 12) return "早上好";
-        if (hour < 18) return "下午好";
-        return "晚上好";
-    }
-
-    private String formatDashboardDuration(long seconds) {
-        long hours = seconds / 3600;
-        long minutes = (seconds % 3600) / 60;
-        if (hours > 0 && minutes > 0) {
-            return String.format(Locale.getDefault(), "%dh %02dm", hours, minutes);
-        }
-        if (hours > 0) {
-            return String.format(Locale.getDefault(), "%dh", hours);
-        }
-        if (minutes > 0) {
-            return String.format(Locale.getDefault(), "%dm", minutes);
-        }
-        return seconds + "s";
+        if (hour < 12) return getString(R.string.home_greeting_morning);
+        if (hour < 18) return getString(R.string.home_greeting_afternoon);
+        return getString(R.string.home_greeting_evening);
     }
 
     private void animatePage() {

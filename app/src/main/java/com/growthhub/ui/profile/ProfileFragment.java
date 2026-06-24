@@ -28,10 +28,10 @@ import com.growthhub.ui.countdown.CountdownActivity;
 import com.growthhub.ui.quote.QuoteActivity;
 import com.growthhub.ui.task.TagActivity;
 import com.growthhub.ui.task.TaskActivity;
+import com.growthhub.util.DurationFormatter;
 import com.growthhub.util.TimeUtils;
 
 import java.util.List;
-import java.util.Locale;
 
 public class ProfileFragment extends Fragment {
     private View content;
@@ -120,7 +120,7 @@ public class ProfileFragment extends Fragment {
         };
         for (int id : ids) {
             root.findViewById(id).setOnClickListener(v ->
-                    Toast.makeText(requireContext(), "V2.2 即将上线", Toast.LENGTH_SHORT).show());
+                    Toast.makeText(requireContext(), R.string.common_v22_coming, Toast.LENGTH_SHORT).show());
         }
     }
 
@@ -145,15 +145,15 @@ public class ProfileFragment extends Fragment {
         int score = growthScore(totalSeconds, sessions, activeRate, streak, unlocked);
         int level = Math.max(1, score / 250 + 1);
 
-        growthLevel.setText("Level " + level + " · " + levelTitle(level));
-        growthScore.setText("Growth Score · " + score);
-        totalFocus.setText(formatHeroDuration(totalSeconds));
-        currentStreak.setText("连续专注 · " + streak + " 天");
-        achievementCount.setText(unlocked + "/" + achievements.size() + " 枚成就");
-        statFocus.setText("专注时长\n" + formatHeroDuration(totalSeconds));
-        statSessions.setText("专注次数\n" + sessions);
-        statActive.setText("活跃率\n" + activeRate + "%");
-        statCategories.setText("分类\n" + categories);
+        growthLevel.setText(getString(R.string.profile_growth_level, level, levelTitle(level)));
+        growthScore.setText(getString(R.string.profile_growth_score, score));
+        totalFocus.setText(DurationFormatter.format(totalSeconds));
+        currentStreak.setText(getString(R.string.profile_streak_days, streak));
+        achievementCount.setText(getString(R.string.profile_achievement_count, unlocked, achievements.size()));
+        statFocus.setText(getString(R.string.profile_stat_focus, DurationFormatter.format(totalSeconds)));
+        statSessions.setText(getString(R.string.profile_stat_sessions, sessions));
+        statActive.setText(getString(R.string.profile_stat_active, activeRate));
+        statCategories.setText(getString(R.string.profile_stat_categories, categories));
 
         renderSummary(statisticsRepository, focusRepository);
         renderAchievementSnapshot(achievementDao, unlocked, achievements.size());
@@ -164,22 +164,22 @@ public class ProfileFragment extends Fragment {
         StatItem bestDay = bestDay(statisticsRepository.recentDailyDurations(30));
         FocusRecord longest = longestSession(focusRepository.getRecent(500));
 
-        summaryCategory.setText("最专注分类 · " +
-                (category == null ? "暂无数据" : category.label + " · " + formatCompactDuration(category.value)));
-        summaryDay.setText("最高效日期 · " +
-                (bestDay == null ? "暂无数据" : bestDay.label + " · " + formatCompactDuration(bestDay.value)));
-        summaryLongest.setText("最长专注 · " +
-                (longest == null ? "暂无数据" : formatCompactDuration(longest.duration) + " · " + TimeUtils.formatDateTime(longest.startTime)));
+        summaryCategory.setText(getString(R.string.profile_summary_category,
+                category == null ? getString(R.string.common_no_data) : category.label + " · " + DurationFormatter.format(category.value)));
+        summaryDay.setText(getString(R.string.profile_summary_day,
+                bestDay == null ? getString(R.string.common_no_data) : bestDay.label + " · " + DurationFormatter.format(bestDay.value)));
+        summaryLongest.setText(getString(R.string.profile_summary_longest,
+                longest == null ? getString(R.string.common_no_data) : DurationFormatter.format(longest.duration) + " · " + TimeUtils.formatDateTime(longest.startTime)));
     }
 
     private void renderAchievementSnapshot(AchievementDao achievementDao, int unlocked, int total) {
         Achievement latest = achievementDao.getLatestUnlocked();
-        achievementTitle.setText("成就快照");
+        achievementTitle.setText(R.string.profile_achievement_snapshot);
         if (latest == null) {
-            achievementDesc.setText("已解锁 " + unlocked + "/" + total + " · 完成专注即可获得第一枚成就。");
+            achievementDesc.setText(getString(R.string.profile_unlocked_first_hint, unlocked, total));
             return;
         }
-        achievementDesc.setText("已解锁 " + unlocked + "/" + total + " · 最新：" + latest.title);
+        achievementDesc.setText(getString(R.string.profile_latest_achievement, unlocked, total, latest.title));
     }
 
     private int currentStreak(List<StatItem> days) {
@@ -205,13 +205,13 @@ public class ProfileFragment extends Fragment {
     }
 
     private String levelTitle(int level) {
-        if (level >= 7) return "专注大师";
-        if (level >= 6) return "深度工作者";
-        if (level >= 5) return "成长探索者";
-        if (level >= 4) return "持续成长者";
-        if (level >= 3) return "稳定建设者";
-        if (level >= 2) return "专注学习者";
-        return "初学者";
+        if (level >= 7) return getString(R.string.profile_level_7);
+        if (level >= 6) return getString(R.string.profile_level_6);
+        if (level >= 5) return getString(R.string.profile_level_5);
+        if (level >= 4) return getString(R.string.profile_level_4);
+        if (level >= 3) return getString(R.string.profile_level_3);
+        if (level >= 2) return getString(R.string.profile_level_2);
+        return getString(R.string.profile_level_1);
     }
 
     private StatItem first(List<StatItem> items) {
@@ -232,24 +232,6 @@ public class ProfileFragment extends Fragment {
             if (best == null || record.duration > best.duration) best = record;
         }
         return best;
-    }
-
-    private String formatHeroDuration(long seconds) {
-        long hours = seconds / 3600;
-        long minutes = (seconds % 3600) / 60;
-        if (hours > 0 && minutes > 0) return String.format(Locale.getDefault(), "%dh %02dm", hours, minutes);
-        if (hours > 0) return hours + "h";
-        if (minutes > 0) return minutes + "m";
-        return seconds + "s";
-    }
-
-    private String formatCompactDuration(long seconds) {
-        long hours = seconds / 3600;
-        long minutes = (seconds % 3600) / 60;
-        if (hours > 0 && minutes > 0) return hours + "h " + minutes + "m";
-        if (hours > 0) return hours + "h";
-        if (minutes > 0) return minutes + "m";
-        return seconds + "s";
     }
 
     private void animatePage() {

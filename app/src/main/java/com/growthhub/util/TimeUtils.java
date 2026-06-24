@@ -40,12 +40,7 @@ public final class TimeUtils {
     }
 
     public static String formatDuration(long seconds) {
-        long h = seconds / 3600;
-        long m = (seconds % 3600) / 60;
-        long s = seconds % 60;
-        if (h > 0) return h + "小时" + m + "分钟";
-        if (m > 0) return m + "分钟" + s + "秒";
-        return s + "秒";
+        return DurationFormatter.format(seconds);
     }
 
     public static String formatDateTime(long millis) {

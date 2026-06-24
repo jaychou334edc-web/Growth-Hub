@@ -19,7 +19,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="专注"
+            android:text="@string/focus_title"
             android:textColor="@color/focus_text_primary"
             android:textSize="32sp"
             android:textStyle="bold" />
@@ -29,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="准备好进入下一轮专注"
+            android:text="@string/focus_ready"
             android:textColor="@color/focus_text_secondary"
             android:textSize="15sp" />
 
@@ -80,7 +80,7 @@
                         android:layout_marginTop="12dp"
                         android:gravity="center"
                         android:maxLines="2"
-                        android:text="深度专注"
+                        android:text="@string/focus_deep_work"
                         android:textColor="@color/focus_text_secondary"
                         android:textSize="15sp" />
                 </LinearLayout>
@@ -107,7 +107,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="当前任务"
+                    android:text="@string/focus_current_task"
                     android:textColor="@color/focus_text_muted"
                     android:textSize="14sp" />
 
@@ -117,7 +117,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:maxLines="2"
-                    android:text="未选择任务"
+                    android:text="@string/common_not_selected_task"
                     android:textColor="@color/focus_text_primary"
                     android:textSize="22sp"
                     android:textStyle="bold" />
@@ -128,7 +128,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
                     android:maxLines="2"
-                    android:text="选择一个任务开始专注"
+                    android:text="@string/focus_select_task_to_start"
                     android:textColor="@color/focus_text_secondary"
                     android:textSize="14sp" />
 
@@ -171,7 +171,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:gravity="center"
-                    android:text="还没有可专注的任务"
+                    android:text="@string/focus_empty_title"
                     android:textColor="@color/focus_text_primary"
                     android:textSize="19sp"
                     android:textStyle="bold" />
@@ -181,7 +181,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:gravity="center"
-                    android:text="请先到“我的 - 任务管理”创建任务，然后回到这里开始一轮深度专注。"
+                    android:text="@string/focus_empty_desc"
                     android:textColor="@color/focus_text_secondary"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -216,7 +216,7 @@
                         android:layout_width="0dp"
                         android:layout_height="48dp"
                         android:layout_weight="1"
-                        android:text="倒计时"
+                        android:text="@string/focus_countdown"
                         android:textColor="@color/focus_text_primary"
                         app:cornerRadius="18dp"
                         app:strokeColor="@color/focus_glass_stroke" />
@@ -227,7 +227,7 @@
                         android:layout_width="0dp"
                         android:layout_height="48dp"
                         android:layout_weight="1"
-                        android:text="正计时"
+                        android:text="@string/focus_count_up"
                         android:textColor="@color/focus_text_primary"
                         app:cornerRadius="18dp"
                         app:strokeColor="@color/focus_glass_stroke" />
@@ -237,7 +237,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="14dp"
-                    android:hint="倒计时分钟"
+                    android:hint="@string/focus_minutes_hint"
                     android:textColorHint="@color/focus_text_secondary"
                     app:boxBackgroundColor="@color/focus_glass"
                     app:boxStrokeColor="@color/focus_glass_stroke"
@@ -266,7 +266,7 @@
                 android:id="@+id/focus_start"
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
-                android:text="开始专注"
+                android:text="@string/focus_start"
                 android:textSize="17sp"
                 app:backgroundTint="@color/focus_timer_start"
                 app:cornerRadius="22dp" />
@@ -284,7 +284,7 @@
                     android:layout_height="56dp"
                     android:layout_marginEnd="6dp"
                     android:layout_weight="1"
-                    android:text="暂停"
+                    android:text="@string/focus_pause"
                     android:textColor="@color/focus_text_primary"
                     app:cornerRadius="20dp"
                     app:strokeColor="@color/focus_glass_stroke" />
@@ -296,7 +296,7 @@
                     android:layout_height="56dp"
                     android:layout_marginStart="6dp"
                     android:layout_weight="1"
-                    android:text="继续"
+                    android:text="@string/focus_resume"
                     android:textColor="@color/focus_text_primary"
                     app:cornerRadius="20dp"
                     app:strokeColor="@color/focus_glass_stroke" />
@@ -307,7 +307,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:layout_marginTop="8dp"
-                android:text="结束专注"
+                android:text="@string/focus_finish_session"
                 app:backgroundTint="@color/focus_timer_end"
                 app:cornerRadius="20dp" />
 
@@ -317,7 +317,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_marginTop="4dp"
-                android:text="取消"
+                android:text="@string/focus_cancel"
                 android:textColor="@color/focus_danger" />
         </LinearLayout>
     </LinearLayout>

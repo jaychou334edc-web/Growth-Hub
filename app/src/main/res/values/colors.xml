@@ -9,6 +9,8 @@
     <color name="growth_surface_variant">#E7EFEA</color>
     <color name="growth_text">#17201D</color>
     <color name="growth_text_secondary">#65736E</color>
+    <color name="main_background">#F7F8F5</color>
+    <color name="legacy_ui_text">#17201D</color>
     <color name="growth_success">#2E7D68</color>
     <color name="growth_warning">#D89A3A</color>
     <color name="growth_error">#BA3F3F</color>
@@ -51,6 +53,7 @@
     <color name="stat_accent_blue">#77A7FF</color>
     <color name="stat_accent_gold">#E0B85E</color>
     <color name="stat_accent_coral">#FF8F80</color>
+    <color name="stat_axis_grid">#26FFFFFF</color>
     <color name="stat_heat_0">#1E302B</color>
     <color name="stat_heat_1">#285D4D</color>
     <color name="stat_heat_2">#33936D</color>
@@ -73,6 +76,8 @@
     <color name="achievement_legend">#D9A7FF</color>
     <color name="achievement_locked">#6E6A64</color>
     <color name="achievement_success">#55DFA5</color>
+    <color name="achievement_track_soft">#36FFFFFF</color>
+    <color name="achievement_card_track">#33FFFFFF</color>
     <color name="history_bg_top">#070D10</color>
     <color name="history_bg_mid">#102019</color>
     <color name="history_bg_bottom">#171F26</color>

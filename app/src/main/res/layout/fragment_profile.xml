@@ -47,7 +47,7 @@
                         android:layout_height="64dp"
                         android:background="@drawable/bg_profile_icon_circle"
                         android:gravity="center"
-                        android:text="GH"
+                        android:text="@string/profile_initials"
                         android:textColor="@color/profile_accent_green"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -62,7 +62,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Growth Explorer"
+                            android:text="@string/profile_name"
                             android:textColor="@color/profile_text_primary"
                             android:textSize="24sp"
                             android:textStyle="bold" />
@@ -72,7 +72,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
-                            android:text="Level 1 · 初学者"
+                            android:text="@string/profile_level_initial"
                             android:textColor="@color/profile_text_secondary"
                             android:textSize="15sp" />
                     </LinearLayout>
@@ -89,7 +89,7 @@
                     android:autoSizeTextType="uniform"
                     android:includeFontPadding="false"
                     android:maxLines="1"
-                    android:text="0s"
+                    android:text="@string/common_seconds_zero"
                     android:textColor="@color/profile_text_primary"
                     android:textSize="52sp"
                     android:textStyle="bold" />
@@ -104,7 +104,7 @@
                     android:minWidth="156dp"
                     android:paddingStart="16dp"
                     android:paddingEnd="16dp"
-                    android:text="Growth Score · 0"
+                    android:text="@string/profile_growth_score_zero"
                     android:textColor="@color/profile_accent_gold"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -146,7 +146,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="22dp"
-            android:text="快速统计"
+            android:text="@string/profile_quick_stats"
             android:textColor="@color/profile_text_primary"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -240,7 +240,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="成长概览"
+                    android:text="@string/profile_growth_summary"
                     android:textColor="@color/profile_text_primary"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -312,7 +312,7 @@
                         android:id="@+id/profile_achievement_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="成就快照"
+                        android:text="@string/profile_achievement_snapshot"
                         android:textColor="@color/profile_text_primary"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -352,7 +352,7 @@
                     android:paddingTop="8dp"
                     android:paddingEnd="8dp"
                     android:paddingBottom="6dp"
-                    android:text="管理中心"
+                    android:text="@string/profile_management_center"
                     android:textColor="@color/profile_text_primary"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -363,7 +363,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:gravity="start|center_vertical"
-                    android:text="分类管理"
+                    android:text="@string/profile_category_management"
                     android:textAlignment="viewStart"
                     android:textColor="@color/profile_text_primary" />
 
@@ -373,7 +373,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:gravity="start|center_vertical"
-                    android:text="任务管理"
+                    android:text="@string/profile_task_management"
                     android:textAlignment="viewStart"
                     android:textColor="@color/profile_text_primary" />
 
@@ -383,7 +383,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:gravity="start|center_vertical"
-                    android:text="标签管理"
+                    android:text="@string/profile_tag_management"
                     android:textAlignment="viewStart"
                     android:textColor="@color/profile_text_primary" />
 
@@ -393,7 +393,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:gravity="start|center_vertical"
-                    android:text="倒数日"
+                    android:text="@string/profile_countdown"
                     android:textAlignment="viewStart"
                     android:textColor="@color/profile_text_primary" />
 
@@ -403,7 +403,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:gravity="start|center_vertical"
-                    android:text="语录"
+                    android:text="@string/profile_quotes"
                     android:textAlignment="viewStart"
                     android:textColor="@color/profile_text_primary" />
             </LinearLayout>
@@ -437,7 +437,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="数据中心"
+                        android:text="@string/profile_data_center"
                         android:textColor="@color/profile_text_primary"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -447,7 +447,7 @@
                         android:layout_height="30dp"
                         android:background="@drawable/bg_profile_beta_pill"
                         android:gravity="center"
-                        android:text="BETA"
+                        android:text="@string/profile_beta"
                         android:textColor="@color/profile_accent_coral"
                         android:textSize="12sp"
                         android:textStyle="bold" />
@@ -459,7 +459,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:gravity="start|center_vertical"
-                    android:text="导出数据"
+                    android:text="@string/profile_export_data"
                     android:textAlignment="viewStart"
                     android:textColor="@color/profile_text_primary" />
 
@@ -469,7 +469,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:gravity="start|center_vertical"
-                    android:text="备份"
+                    android:text="@string/profile_backup"
                     android:textAlignment="viewStart"
                     android:textColor="@color/profile_text_primary" />
 
@@ -479,7 +479,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:gravity="start|center_vertical"
-                    android:text="恢复"
+                    android:text="@string/profile_restore"
                     android:textAlignment="viewStart"
                     android:textColor="@color/profile_text_primary" />
             </LinearLayout>
@@ -509,7 +509,7 @@
                     android:paddingTop="8dp"
                     android:paddingEnd="8dp"
                     android:paddingBottom="6dp"
-                    android:text="设置"
+                    android:text="@string/profile_settings"
                     android:textColor="@color/profile_text_primary"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -520,7 +520,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:gravity="start|center_vertical"
-                    android:text="通知"
+                    android:text="@string/profile_notification"
                     android:textAlignment="viewStart"
                     android:textColor="@color/profile_text_primary" />
 
@@ -530,7 +530,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:gravity="start|center_vertical"
-                    android:text="关于"
+                    android:text="@string/profile_about"
                     android:textAlignment="viewStart"
                     android:textColor="@color/profile_text_primary" />
 
@@ -540,7 +540,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:gravity="start|center_vertical"
-                    android:text="主题"
+                    android:text="@string/profile_theme"
                     android:textAlignment="viewStart"
                     android:textColor="@color/profile_text_primary" />
             </LinearLayout>

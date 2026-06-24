@@ -61,14 +61,14 @@ public class FocusFragment extends Fragment {
             if (AppActions.ACTION_FOCUS_TICK.equals(intent.getAction())) {
                 long remaining = intent.getLongExtra(AppActions.EXTRA_REMAINING, 0);
                 timerText.setText(formatHeroDuration(remaining));
-                statusText.setText("专注进行中");
-                timerCaption.setText("保持心流");
+                statusText.setText(R.string.focus_running);
+                timerCaption.setText(R.string.focus_stay_in_flow);
             } else if (AppActions.ACTION_FOCUS_FINISH.equals(intent.getAction())) {
-                timerText.setText("专注完成");
-                statusText.setText("专注记录已生成");
-                timerCaption.setText("本轮专注已完成");
+                timerText.setText(R.string.focus_completed);
+                statusText.setText(R.string.focus_record_created);
+                timerCaption.setText(R.string.focus_session_complete);
                 animateFinish();
-                Toast.makeText(context, "专注记录已生成", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, R.string.focus_record_created, Toast.LENGTH_SHORT).show();
             }
         }
     };
@@ -103,21 +103,21 @@ public class FocusFragment extends Fragment {
             startFocus();
         });
         pause.setOnClickListener(v -> {
-            statusText.setText("已暂停");
-            timerCaption.setText("稍作停顿，再回到节奏");
+            statusText.setText(R.string.focus_paused);
+            timerCaption.setText(R.string.focus_pause_caption);
             animatePause();
             sendAction(AppActions.ACTION_FOCUS_PAUSE);
         });
         resume.setOnClickListener(v -> {
-            statusText.setText("继续专注");
-            timerCaption.setText("回到心流");
+            statusText.setText(R.string.focus_resume);
+            timerCaption.setText(R.string.focus_resume_caption);
             animateStart();
             sendAction(AppActions.ACTION_FOCUS_RESUME);
         });
         stop.setOnClickListener(v -> showFinishDialog());
         cancel.setOnClickListener(v -> {
-            statusText.setText("已放弃本轮专注");
-            timerCaption.setText("准备好后随时开始");
+            statusText.setText(R.string.focus_canceled);
+            timerCaption.setText(R.string.focus_ready_when_you_are);
             sendAction(AppActions.ACTION_FOCUS_CANCEL);
         });
         animateEntrance(root);
@@ -165,9 +165,9 @@ public class FocusFragment extends Fragment {
         emptyCard.setVisibility(empty ? View.VISIBLE : View.GONE);
         if (empty) {
             emptyCard.setAlpha(1f);
-            taskName.setText("未选择任务");
-            taskMeta.setText("请先创建一个任务");
-            statusText.setText("等待任务");
+            taskName.setText(R.string.common_not_selected_task);
+            taskMeta.setText(R.string.common_create_task_first);
+            statusText.setText(R.string.focus_waiting_task);
             return;
         }
         taskCard.setAlpha(1f);
@@ -186,7 +186,7 @@ public class FocusFragment extends Fragment {
 
     private void startFocus() {
         if (tasks.isEmpty()) {
-            Toast.makeText(requireContext(), "请先在“我的-任务管理”中创建任务", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), R.string.focus_create_task_toast, Toast.LENGTH_SHORT).show();
             return;
         }
         TaskItem task = tasks.get(taskSpinner.getSelectedItemPosition());
@@ -207,8 +207,8 @@ public class FocusFragment extends Fragment {
         } else {
             requireContext().startService(intent);
         }
-        statusText.setText("专注进行中");
-        timerCaption.setText(mode == FocusMode.COUNTUP ? "正计时中" : "倒计时中");
+        statusText.setText(R.string.focus_running);
+        timerCaption.setText(mode == FocusMode.COUNTUP ? R.string.focus_counting_up : R.string.focus_counting_down);
     }
 
     private void sendAction(String action) {
@@ -222,19 +222,24 @@ public class FocusFragment extends Fragment {
         box.setOrientation(LinearLayout.VERTICAL);
         Spinner moodSpinner = new Spinner(requireContext());
         moodSpinner.setAdapter(new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_dropdown_item,
-                new String[]{"很棒", "良好", "普通", "较差"}));
+                new String[]{
+                        getString(R.string.focus_mood_great),
+                        getString(R.string.focus_mood_good),
+                        getString(R.string.focus_mood_normal),
+                        getString(R.string.focus_mood_bad)
+                }));
         moodSpinner.setSelection(2);
         TextInputLayout noteLayout = new TextInputLayout(requireContext());
-        noteLayout.setHint("专注备注，可为空");
+        noteLayout.setHint(getString(R.string.focus_note_hint));
         TextInputEditText note = new TextInputEditText(requireContext());
         noteLayout.addView(note);
         box.addView(moodSpinner);
         box.addView(noteLayout);
         new AlertDialog.Builder(requireContext())
-                .setTitle("结束专注")
+                .setTitle(R.string.focus_finish_session)
                 .setView(box)
-                .setNegativeButton("跳过", (dialog, which) -> stopWithMood(Mood.NORMAL, ""))
-                .setPositiveButton("保存", (dialog, which) -> {
+                .setNegativeButton(R.string.common_skip, (dialog, which) -> stopWithMood(Mood.NORMAL, ""))
+                .setPositiveButton(R.string.common_save, (dialog, which) -> {
                     int selected = moodSpinner.getSelectedItemPosition();
                     int mood = selected == 0 ? Mood.GREAT : selected == 1 ? Mood.GOOD : selected == 3 ? Mood.BAD : Mood.NORMAL;
                     stopWithMood(mood, note.getText().toString().trim());
@@ -253,8 +258,8 @@ public class FocusFragment extends Fragment {
     private void updateTaskSummary(TaskItem task) {
         taskName.setText(task.title);
         String description = task.description == null || task.description.trim().isEmpty()
-                ? "任务 #" + task.id + " · 分类 #" + task.categoryId
-                : task.description + " · 分类 #" + task.categoryId;
+                ? getString(R.string.common_task_id_category_id, task.id, task.categoryId)
+                : task.description + " · " + getString(R.string.common_category_id, task.categoryId);
         taskMeta.setText(description);
     }
 

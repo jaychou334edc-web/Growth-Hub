@@ -2,21 +2,21 @@
     <item
         android:id="@+id/nav_home"
         android:icon="@drawable/ic_home"
-        android:title="首页" />
+        android:title="@string/nav_home" />
     <item
         android:id="@+id/nav_focus"
         android:icon="@drawable/ic_timer"
-        android:title="专注" />
+        android:title="@string/nav_focus" />
     <item
         android:id="@+id/nav_history"
         android:icon="@drawable/ic_history"
-        android:title="历史" />
+        android:title="@string/nav_history" />
     <item
         android:id="@+id/nav_statistics"
         android:icon="@drawable/ic_chart"
-        android:title="统计" />
+        android:title="@string/nav_statistics" />
     <item
         android:id="@+id/nav_profile"
         android:icon="@drawable/ic_profile"
-        android:title="我的" />
+        android:title="@string/nav_profile" />
 </menu>

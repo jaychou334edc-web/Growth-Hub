@@ -39,7 +39,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="专注时间线"
+                    android:text="@string/history_focus_timeline"
                     android:textColor="@color/history_text_secondary"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -55,7 +55,7 @@
                     android:autoSizeTextType="uniform"
                     android:includeFontPadding="false"
                     android:maxLines="1"
-                    android:text="0s"
+                    android:text="@string/common_seconds_zero"
                     android:textColor="@color/history_text_primary"
                     android:textSize="54sp"
                     android:textStyle="bold" />
@@ -64,7 +64,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="累计专注时长"
+                    android:text="@string/history_total_focus_time"
                     android:textColor="@color/history_text_secondary"
                     android:textSize="16sp" />
 
@@ -133,7 +133,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="48dp"
                         android:checked="true"
-                        android:text="全部"
+                        android:text="@string/history_filter_all"
                         android:textColor="@color/history_filter_chip_text"
                         app:chipBackgroundColor="@color/history_filter_chip_bg"
                         app:chipStrokeColor="@color/history_stroke"
@@ -144,7 +144,7 @@
                         style="@style/Widget.MaterialComponents.Chip.Choice"
                         android:layout_width="wrap_content"
                         android:layout_height="48dp"
-                        android:text="今日"
+                        android:text="@string/history_filter_today"
                         android:textColor="@color/history_filter_chip_text"
                         app:chipBackgroundColor="@color/history_filter_chip_bg"
                         app:chipStrokeColor="@color/history_stroke"
@@ -155,7 +155,7 @@
                         style="@style/Widget.MaterialComponents.Chip.Choice"
                         android:layout_width="wrap_content"
                         android:layout_height="48dp"
-                        android:text="本周"
+                        android:text="@string/history_filter_week"
                         android:textColor="@color/history_filter_chip_text"
                         app:chipBackgroundColor="@color/history_filter_chip_bg"
                         app:chipStrokeColor="@color/history_stroke"
@@ -166,7 +166,7 @@
                         style="@style/Widget.MaterialComponents.Chip.Choice"
                         android:layout_width="wrap_content"
                         android:layout_height="48dp"
-                        android:text="本月"
+                        android:text="@string/history_filter_month"
                         android:textColor="@color/history_filter_chip_text"
                         app:chipBackgroundColor="@color/history_filter_chip_bg"
                         app:chipStrokeColor="@color/history_stroke"
@@ -180,7 +180,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="时间线"
+            android:text="@string/history_timeline"
             android:textColor="@color/history_text_primary"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -224,7 +224,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:gravity="center"
-                    android:text="暂无专注历史"
+                    android:text="@string/history_empty_title"
                     android:textColor="@color/history_text_primary"
                     android:textSize="21sp"
                     android:textStyle="bold" />
@@ -234,7 +234,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:gravity="center"
-                    android:text="开始一次专注，逐步建立你的成长时间线。"
+                    android:text="@string/history_empty_desc"
                     android:textColor="@color/history_text_secondary"
                     android:textSize="15sp" />
 
@@ -243,7 +243,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
                     android:layout_marginTop="18dp"
-                    android:text="开始专注"
+                    android:text="@string/home_start_focus"
                     android:textSize="16sp"
                     app:backgroundTint="@color/history_accent_green"
                     app:cornerRadius="20dp" />

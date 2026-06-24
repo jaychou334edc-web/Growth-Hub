@@ -83,7 +83,7 @@
             android:layout_marginTop="8dp"
             android:max="100"
             app:indicatorColor="@color/achievement_gold"
-            app:trackColor="#33FFFFFF"
+            app:trackColor="@color/achievement_card_track"
             app:trackCornerRadius="3dp"
             app:trackThickness="6dp" />
     </LinearLayout>

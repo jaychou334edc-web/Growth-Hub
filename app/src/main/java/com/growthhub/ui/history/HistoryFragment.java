@@ -22,12 +22,12 @@ import com.growthhub.database.entity.FocusRecord;
 import com.growthhub.database.entity.TaskItem;
 import com.growthhub.database.repository.FocusRepository;
 import com.growthhub.database.repository.TaskRepository;
+import com.growthhub.util.DurationFormatter;
 import com.growthhub.util.TimeUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 public class HistoryFragment extends Fragment {
@@ -90,21 +90,21 @@ public class HistoryFragment extends Fragment {
             total += record.duration;
             longest = Math.max(longest, record.duration);
             TaskItem task = tasks.get(record.taskId);
-            String taskName = task == null ? "专注记录" : task.title;
-            String category = task == null ? "未分类" : categories.getOrDefault(task.categoryId, "未分类");
+            String taskName = task == null ? getString(R.string.home_focus_record) : task.title;
+            String category = task == null ? getString(R.string.history_uncategorized) : categories.getOrDefault(task.categoryId, getString(R.string.history_uncategorized));
             allItems.add(new HistoryTimelineAdapter.DisplayItem(
                     record.startTime,
                     taskName,
                     category,
-                    formatCompactDuration(record.duration),
+                    DurationFormatter.format(record.duration),
                     TimeUtils.formatDateTime(record.startTime),
                     moodLabel(record.mood),
                     notePreview(record.note)
             ));
         }
-        totalFocus.setText(formatHeroDuration(total));
-        totalSessions.setText(records.size() + " 次专注");
-        longestSession.setText("最长 · " + formatCompactDuration(longest));
+        totalFocus.setText(DurationFormatter.format(total));
+        totalSessions.setText(getString(R.string.history_sessions_count, records.size()));
+        longestSession.setText(getString(R.string.history_longest, DurationFormatter.format(longest)));
     }
 
     private void applyFilter(int checkedId) {
@@ -148,28 +148,10 @@ public class HistoryFragment extends Fragment {
     }
 
     private String moodLabel(int mood) {
-        if (mood == Mood.GREAT) return "很棒";
-        if (mood == Mood.GOOD) return "良好";
-        if (mood == Mood.BAD) return "较差";
-        return "普通";
-    }
-
-    private String formatHeroDuration(long seconds) {
-        long hours = seconds / 3600;
-        long minutes = (seconds % 3600) / 60;
-        if (hours > 0 && minutes > 0) return String.format(Locale.getDefault(), "%dh %02dm", hours, minutes);
-        if (hours > 0) return hours + "h";
-        if (minutes > 0) return minutes + "m";
-        return seconds + "s";
-    }
-
-    private String formatCompactDuration(long seconds) {
-        long hours = seconds / 3600;
-        long minutes = (seconds % 3600) / 60;
-        if (hours > 0 && minutes > 0) return hours + "h " + minutes + "m";
-        if (hours > 0) return hours + "h";
-        if (minutes > 0) return minutes + "m";
-        return seconds + "s";
+        if (mood == Mood.GREAT) return getString(R.string.focus_mood_great);
+        if (mood == Mood.GOOD) return getString(R.string.focus_mood_good);
+        if (mood == Mood.BAD) return getString(R.string.focus_mood_bad);
+        return getString(R.string.focus_mood_normal);
     }
 
     private void showFocusTab() {
