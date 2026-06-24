@@ -1,6 +1,10 @@
 package com.growthhub.ui.profile;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,11 +13,15 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.growthhub.R;
+import com.growthhub.data.BackupManager;
 import com.growthhub.database.dao.AchievementDao;
 import com.growthhub.database.entity.Achievement;
 import com.growthhub.database.entity.FocusRecord;
@@ -25,13 +33,18 @@ import com.growthhub.model.StatItem;
 import com.growthhub.ui.achievement.AchievementActivity;
 import com.growthhub.ui.category.CategoryActivity;
 import com.growthhub.ui.countdown.CountdownActivity;
+import com.growthhub.ui.data.ExportActivity;
+import com.growthhub.ui.data.RestoreActivity;
 import com.growthhub.ui.quote.QuoteActivity;
+import com.growthhub.ui.settings.SettingsActivity;
 import com.growthhub.ui.task.TagActivity;
 import com.growthhub.ui.task.TaskActivity;
 import com.growthhub.util.DurationFormatter;
 import com.growthhub.util.TimeUtils;
 
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class ProfileFragment extends Fragment {
     private View content;
@@ -56,14 +69,25 @@ public class ProfileFragment extends Fragment {
     private TextView summaryLongest;
     private TextView achievementTitle;
     private TextView achievementDesc;
+    private ExecutorService dataExecutor;
+    private final ActivityResultLauncher<String> storagePermissionLauncher =
+            registerForActivityResult(new ActivityResultContracts.RequestPermission(), granted -> {
+                if (granted && isAdded()) {
+                    backup();
+                } else if (isAdded()) {
+                    Toast.makeText(requireContext(), R.string.storage_permission_denied, Toast.LENGTH_SHORT).show();
+                }
+            });
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        dataExecutor = Executors.newSingleThreadExecutor();
         View root = inflater.inflate(R.layout.fragment_profile, container, false);
         bindViews(root);
         bindNavigation(root);
-        bindComingSoon(root);
+        bindDataCenter(root);
+        bindSettings(root);
         animatePage();
         return root;
     }
@@ -109,19 +133,55 @@ public class ProfileFragment extends Fragment {
                 startActivity(new Intent(requireContext(), AchievementActivity.class)));
     }
 
-    private void bindComingSoon(View root) {
-        int[] ids = {
-                R.id.profile_export,
-                R.id.profile_backup,
-                R.id.profile_restore,
-                R.id.profile_notification,
-                R.id.profile_about,
-                R.id.profile_theme
-        };
-        for (int id : ids) {
-            root.findViewById(id).setOnClickListener(v ->
-                    Toast.makeText(requireContext(), R.string.common_v22_coming, Toast.LENGTH_SHORT).show());
+    private void bindDataCenter(View root) {
+        bind(root, R.id.profile_export, ExportActivity.class);
+        bind(root, R.id.profile_restore, RestoreActivity.class);
+        root.findViewById(R.id.profile_backup).setOnClickListener(v -> backupWithPermission());
+    }
+
+    private void bindSettings(View root) {
+        bind(root, R.id.profile_notification, SettingsActivity.class);
+        bind(root, R.id.profile_about, SettingsActivity.class);
+        bind(root, R.id.profile_theme, SettingsActivity.class);
+    }
+
+    private void backupWithPermission() {
+        if (needsLegacyStoragePermission()) {
+            storagePermissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            return;
         }
+        backup();
+    }
+
+    private void backup() {
+        Context appContext = requireContext().getApplicationContext();
+        Toast.makeText(requireContext(), R.string.backup_running, Toast.LENGTH_SHORT).show();
+        if (dataExecutor == null || dataExecutor.isShutdown()) {
+            dataExecutor = Executors.newSingleThreadExecutor();
+        }
+        dataExecutor.execute(() -> {
+            try {
+                String path = new BackupManager(appContext).backupDatabase();
+                if (!isAdded()) return;
+                requireActivity().runOnUiThread(() ->
+                        Toast.makeText(requireContext(), getString(R.string.backup_success_path, path), Toast.LENGTH_LONG).show());
+            } catch (Exception e) {
+                String message = errorMessage(e, getString(R.string.backup_failed));
+                if (!isAdded()) return;
+                requireActivity().runOnUiThread(() ->
+                        Toast.makeText(requireContext(), getString(R.string.backup_failed_reason, message), Toast.LENGTH_LONG).show());
+            }
+        });
+    }
+
+    private boolean needsLegacyStoragePermission() {
+        return Build.VERSION.SDK_INT <= Build.VERSION_CODES.P
+                && ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED;
+    }
+
+    private String errorMessage(Exception e, String fallback) {
+        return e.getMessage() == null || e.getMessage().length() == 0 ? fallback : e.getMessage();
     }
 
     private void bind(View root, int id, Class<?> activityClass) {
@@ -266,5 +326,14 @@ public class ProfileFragment extends Fragment {
 
     private int dp(int value) {
         return (int) (value * getResources().getDisplayMetrics().density);
+    }
+
+    @Override
+    public void onDestroyView() {
+        if (dataExecutor != null) {
+            dataExecutor.shutdownNow();
+            dataExecutor = null;
+        }
+        super.onDestroyView();
     }
 }

@@ -2,20 +2,20 @@ package com.growthhub.ui.countdown;
 
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.Spinner;
+import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.growthhub.R;
 import com.growthhub.database.entity.CountdownEvent;
 import com.growthhub.database.repository.CountdownRepository;
+import com.growthhub.ui.management.ManagementAnimations;
 import com.growthhub.util.TimeUtils;
-import com.growthhub.util.UiUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -25,39 +25,41 @@ import java.util.Locale;
 
 public class CountdownActivity extends AppCompatActivity {
     private CountdownRepository repository;
-    private LinearLayout list;
+    private CountdownPremiumAdapter adapter;
+    private EditText title;
+    private EditText date;
+    private EditText description;
+    private Spinner remind;
+    private android.widget.TextView totalCount;
+    private android.widget.TextView highlightDays;
+    private android.widget.TextView highlightTitle;
+    private View emptyCard;
+    private List<Integer> days;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         repository = new CountdownRepository(this);
-        ScrollView scrollView = new ScrollView(this);
-        LinearLayout root = new LinearLayout(this);
-        root.setOrientation(LinearLayout.VERTICAL);
-        scrollView.addView(root);
-        root.addView(UiUtils.title(this, getString(R.string.countdown_title)));
-
-        EditText title = new EditText(this);
-        title.setHint(R.string.countdown_title_hint);
-        root.addView(title);
-        EditText date = new EditText(this);
-        date.setHint(R.string.countdown_date_hint);
-        root.addView(date);
-        EditText description = new EditText(this);
-        description.setHint(R.string.countdown_description_hint);
-        root.addView(description);
-        Spinner remind = new Spinner(this);
-        List<Integer> days = Arrays.asList(0, 1, 3, 7);
+        setContentView(R.layout.activity_countdown);
+        title = findViewById(R.id.countdown_title_input);
+        date = findViewById(R.id.countdown_date_input);
+        description = findViewById(R.id.countdown_description_input);
+        remind = findViewById(R.id.countdown_remind_spinner);
+        totalCount = findViewById(R.id.countdown_total_count);
+        highlightDays = findViewById(R.id.countdown_highlight_days);
+        highlightTitle = findViewById(R.id.countdown_highlight_title_text);
+        emptyCard = findViewById(R.id.countdown_empty_card);
+        days = Arrays.asList(0, 1, 3, 7);
         remind.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, days));
-        root.addView(remind);
-        Button add = UiUtils.button(this, getString(R.string.countdown_add));
-        root.addView(add);
-        list = new LinearLayout(this);
-        list.setOrientation(LinearLayout.VERTICAL);
-        root.addView(list);
-        setContentView(scrollView);
+        adapter = new CountdownPremiumAdapter(event -> {
+            repository.delete(event.id);
+            render();
+        });
+        RecyclerView recycler = findViewById(R.id.countdown_recycler);
+        recycler.setLayoutManager(new LinearLayoutManager(this));
+        recycler.setAdapter(adapter);
 
-        add.setOnClickListener(v -> {
+        findViewById(R.id.countdown_add_button).setOnClickListener(v -> {
             try {
                 Date target = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(date.getText().toString().trim());
                 if (target == null) return;
@@ -69,25 +71,42 @@ public class CountdownActivity extends AppCompatActivity {
             } catch (Exception ignored) {
             }
         });
+        animatePage();
         render();
     }
 
     private void render() {
-        list.removeAllViews();
-        long now = System.currentTimeMillis();
-        for (CountdownEvent event : repository.getAll()) {
-            long daysLeft = (event.targetDate - now) / (24L * 60L * 60L * 1000L);
-            LinearLayout row = new LinearLayout(this);
-            row.setOrientation(LinearLayout.VERTICAL);
-            row.addView(UiUtils.text(this, event.title + "\n" +
-                    getString(R.string.countdown_item, TimeUtils.formatDate(event.targetDate), daysLeft, event.remindDaysBefore), 15));
-            Button delete = UiUtils.button(this, getString(R.string.common_delete));
-            delete.setOnClickListener(v -> {
-                repository.delete(event.id);
-                render();
-            });
-            row.addView(delete);
-            list.addView(row);
+        List<CountdownEvent> events = repository.getAll();
+        totalCount.setText(String.valueOf(events.size()));
+        adapter.submit(events);
+        emptyCard.setVisibility(events.isEmpty() ? View.VISIBLE : View.GONE);
+        CountdownEvent next = nearest(events);
+        if (next == null) {
+            highlightDays.setText("--");
+            highlightTitle.setText(R.string.countdown_no_highlight);
+        } else {
+            long left = Math.max(0, (next.targetDate - TimeUtils.startOfToday()) / (24L * 60L * 60L * 1000L));
+            highlightDays.setText(getString(R.string.countdown_days_left, left));
+            highlightTitle.setText(next.title);
         }
+    }
+
+    private CountdownEvent nearest(List<CountdownEvent> events) {
+        CountdownEvent result = null;
+        long today = TimeUtils.startOfToday();
+        for (CountdownEvent event : events) {
+            if (event.targetDate < today) continue;
+            if (result == null || event.targetDate < result.targetDate) {
+                result = event;
+            }
+        }
+        return result;
+    }
+
+    private void animatePage() {
+        ManagementAnimations.enterStaggered(40, 80,
+                findViewById(R.id.countdown_hero_card),
+                findViewById(R.id.countdown_highlight_card),
+                findViewById(R.id.countdown_form_card));
     }
 }

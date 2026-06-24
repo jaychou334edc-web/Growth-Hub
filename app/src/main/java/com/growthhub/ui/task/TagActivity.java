@@ -1,65 +1,65 @@
 package com.growthhub.ui.task;
 
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
+import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.growthhub.R;
 import com.growthhub.database.entity.Tag;
 import com.growthhub.database.repository.TaskRepository;
-import com.growthhub.util.UiUtils;
+import com.growthhub.ui.management.ManagementAnimations;
+
+import java.util.List;
 
 public class TagActivity extends AppCompatActivity {
     private TaskRepository repository;
-    private LinearLayout list;
+    private TagPremiumAdapter adapter;
+    private EditText name;
+    private android.widget.TextView totalCount;
+    private View emptyCard;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         repository = new TaskRepository(this);
-        ScrollView scrollView = new ScrollView(this);
-        LinearLayout root = new LinearLayout(this);
-        root.setOrientation(LinearLayout.VERTICAL);
-        scrollView.addView(root);
-        root.addView(UiUtils.title(this, getString(R.string.tag_title)));
-        EditText name = new EditText(this);
-        name.setHint(R.string.tag_name_hint);
-        root.addView(name);
-        Button add = UiUtils.button(this, getString(R.string.tag_add));
-        root.addView(add);
-        list = new LinearLayout(this);
-        list.setOrientation(LinearLayout.VERTICAL);
-        root.addView(list);
-        setContentView(scrollView);
+        setContentView(R.layout.activity_tag);
+        name = findViewById(R.id.tag_name_input);
+        totalCount = findViewById(R.id.tag_total_count);
+        emptyCard = findViewById(R.id.tag_empty_card);
+        adapter = new TagPremiumAdapter(tag -> {
+            repository.deleteTag(tag.id);
+            renderList();
+        });
+        RecyclerView recycler = findViewById(R.id.tag_recycler);
+        recycler.setLayoutManager(new LinearLayoutManager(this));
+        recycler.setAdapter(adapter);
 
-        add.setOnClickListener(v -> {
+        findViewById(R.id.tag_add_button).setOnClickListener(v -> {
             if (!name.getText().toString().trim().isEmpty()) {
                 repository.createTag(name.getText().toString().trim());
                 name.setText("");
                 renderList();
             }
         });
+        animatePage();
         renderList();
     }
 
     private void renderList() {
-        list.removeAllViews();
-        for (Tag tag : repository.getTags()) {
-            LinearLayout row = new LinearLayout(this);
-            row.setOrientation(LinearLayout.VERTICAL);
-            row.addView(UiUtils.text(this, "#" + tag.id + " " + tag.name, 15));
-            Button delete = UiUtils.button(this, getString(R.string.tag_delete));
-            delete.setOnClickListener(v -> {
-                repository.deleteTag(tag.id);
-                renderList();
-            });
-            row.addView(delete);
-            list.addView(row);
-        }
+        List<Tag> tags = repository.getTags();
+        totalCount.setText(String.valueOf(tags.size()));
+        adapter.submit(tags);
+        emptyCard.setVisibility(tags.isEmpty() ? View.VISIBLE : View.GONE);
+    }
+
+    private void animatePage() {
+        ManagementAnimations.enterStaggered(40, 80,
+                findViewById(R.id.tag_hero_card),
+                findViewById(R.id.tag_form_card));
     }
 }
