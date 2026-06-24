@@ -17,6 +17,7 @@
         android:icon="@drawable/ic_home"
         android:label="@string/app_name"
         android:theme="@style/Theme.GrowthHub">
+        <activity android:name=".ui.report.WeeklyReportActivity" />
         <activity android:name=".ui.data.RestoreActivity" />
         <activity android:name=".ui.data.ExportActivity" />
         <activity android:name=".ui.settings.SettingsActivity" />

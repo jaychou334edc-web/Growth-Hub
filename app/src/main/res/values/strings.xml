@@ -166,6 +166,8 @@
     <string name="profile_growth_level">Level %1$d · %2$s</string>
     <string name="profile_quick_stats">快速统计</string>
     <string name="profile_growth_summary">成长概览</string>
+    <string name="profile_weekly_report">每周成长报告</string>
+    <string name="profile_weekly_report_desc">查看本周专注总结、成长评分与自动洞察</string>
     <string name="profile_achievement_snapshot">成就快照</string>
     <string name="profile_management_center">管理中心</string>
     <string name="profile_category_management">分类管理</string>
@@ -253,6 +255,26 @@
     <string name="restore_failed_reason">恢复失败：%1$s</string>
     <string name="storage_permission_denied">存储权限未授予，无法写入 Documents 目录</string>
     <string name="splash_tagline">Build Your Future</string>
+    <string name="weekly_report_title">每周成长报告</string>
+    <string name="weekly_report_hero_label">本周总专注时长</string>
+    <string name="weekly_report_change_up">↑ %1$d%% vs 上周</string>
+    <string name="weekly_report_change_down">↓ %1$d%% vs 上周</string>
+    <string name="weekly_report_summary_title">Weekly Summary</string>
+    <string name="weekly_report_summary_body">本周完成：%1$d 次专注\n累计：%2$s\n平均每次：%3$s\n活跃天数：%4$d/7\n活跃率：%5$d%%</string>
+    <string name="weekly_report_insights_title">Insights</string>
+    <string name="weekly_report_insights_body">最专注分类：%1$s\n最专注任务：%2$s\n最高效率日期：%3$s\n最长专注记录：%4$s</string>
+    <string name="weekly_report_achievements_title">Achievements</string>
+    <string name="weekly_report_no_achievement">本周暂未解锁新成就，\n继续保持成长节奏。</string>
+    <string name="weekly_report_growth_title">Growth Evaluation</string>
+    <string name="weekly_report_growth_score_value">Growth Score · %1$d/100</string>
+    <string name="weekly_report_narrative_title">Weekly Narrative</string>
+    <string name="weekly_report_export_button">Export Weekly Report</string>
+    <string name="weekly_report_export_waiting">导出为 TXT：Documents/GrowthHub/reports/</string>
+    <string name="weekly_report_export_running">正在导出周报，请稍候...</string>
+    <string name="weekly_report_export_success">周报导出成功</string>
+    <string name="weekly_report_export_failed">周报导出失败</string>
+    <string name="weekly_report_export_success_path">导出位置：%1$s</string>
+    <string name="weekly_report_export_failed_reason">导出失败：%1$s</string>
 
     <string name="category_title">分类管理</string>
     <string name="category_hero_label">成长分类</string>

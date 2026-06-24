@@ -118,4 +118,17 @@
     <color name="management_accent_gold">#E0B85E</color>
     <color name="management_accent_coral">#FF8F80</color>
     <color name="management_card_shadow">#66000000</color>
+    <color name="report_bg_top">#070D10</color>
+    <color name="report_bg_mid">#101F1B</color>
+    <color name="report_bg_bottom">#161E28</color>
+    <color name="report_glass">#24FFFFFF</color>
+    <color name="report_glass_strong">#36FFFFFF</color>
+    <color name="report_stroke">#42FFFFFF</color>
+    <color name="report_text_primary">#F6FFF9</color>
+    <color name="report_text_secondary">#B9CCC2</color>
+    <color name="report_text_muted">#82978E</color>
+    <color name="report_accent_green">#45D69D</color>
+    <color name="report_accent_blue">#77A7FF</color>
+    <color name="report_accent_gold">#E0B85E</color>
+    <color name="report_accent_coral">#FF8F80</color>
 </resources>

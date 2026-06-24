@@ -36,6 +36,7 @@ import com.growthhub.ui.countdown.CountdownActivity;
 import com.growthhub.ui.data.ExportActivity;
 import com.growthhub.ui.data.RestoreActivity;
 import com.growthhub.ui.quote.QuoteActivity;
+import com.growthhub.ui.report.WeeklyReportActivity;
 import com.growthhub.ui.settings.SettingsActivity;
 import com.growthhub.ui.task.TagActivity;
 import com.growthhub.ui.task.TaskActivity;
@@ -51,6 +52,7 @@ public class ProfileFragment extends Fragment {
     private View heroCard;
     private View statsGrid;
     private View summaryCard;
+    private View weeklyReportCard;
     private View achievementCard;
     private View managementCard;
     private View dataCard;
@@ -103,6 +105,7 @@ public class ProfileFragment extends Fragment {
         heroCard = root.findViewById(R.id.profile_hero_card);
         statsGrid = root.findViewById(R.id.profile_stats_grid);
         summaryCard = root.findViewById(R.id.profile_summary_card);
+        weeklyReportCard = root.findViewById(R.id.profile_weekly_report);
         achievementCard = root.findViewById(R.id.profile_achievement);
         managementCard = root.findViewById(R.id.profile_management_card);
         dataCard = root.findViewById(R.id.profile_data_card);
@@ -129,6 +132,7 @@ public class ProfileFragment extends Fragment {
         bind(root, R.id.profile_tag, TagActivity.class);
         bind(root, R.id.profile_countdown, CountdownActivity.class);
         bind(root, R.id.profile_quote, QuoteActivity.class);
+        bind(root, R.id.profile_weekly_report, WeeklyReportActivity.class);
         root.findViewById(R.id.profile_achievement).setOnClickListener(v ->
                 startActivity(new Intent(requireContext(), AchievementActivity.class)));
     }
@@ -306,10 +310,11 @@ public class ProfileFragment extends Fragment {
         animateIn(heroCard, 40);
         animateIn(statsGrid, 130);
         animateIn(summaryCard, 220);
-        animateIn(achievementCard, 310);
-        animateIn(managementCard, 400);
-        animateIn(dataCard, 490);
-        animateIn(settingsCard, 580);
+        animateIn(weeklyReportCard, 310);
+        animateIn(achievementCard, 400);
+        animateIn(managementCard, 490);
+        animateIn(dataCard, 580);
+        animateIn(settingsCard, 670);
     }
 
     private void animateIn(View view, long delay) {
