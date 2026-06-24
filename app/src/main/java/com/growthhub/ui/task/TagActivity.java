@@ -40,11 +40,15 @@ public class TagActivity extends AppCompatActivity {
         recycler.setAdapter(adapter);
 
         findViewById(R.id.tag_add_button).setOnClickListener(v -> {
-            if (!name.getText().toString().trim().isEmpty()) {
-                repository.createTag(name.getText().toString().trim());
-                name.setText("");
-                renderList();
+            String tagName = name.getText().toString().trim();
+            if (tagName.isEmpty()) {
+                name.setError(getString(R.string.validation_tag_name_required));
+                name.requestFocus();
+                return;
             }
+            repository.createTag(tagName);
+            name.setText("");
+            renderList();
         });
         animatePage();
         renderList();

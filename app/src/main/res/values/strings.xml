@@ -203,7 +203,7 @@
     <string name="profile_level_6">深度工作者</string>
     <string name="profile_level_7">专注大师</string>
     <string name="settings_title">设置中心</string>
-    <string name="settings_hero_title">Settings Center</string>
+    <string name="settings_hero_title">设置中心</string>
     <string name="settings_hero_desc">让 Growth Hub 更贴合你的专注节奏。</string>
     <string name="settings_notification_title">提醒通知</string>
     <string name="settings_notification_desc">开启后，倒数日提醒会通过系统通知送达。</string>
@@ -221,7 +221,7 @@
     <string name="settings_notification_permission_denied">通知权限未授予，提醒通知已关闭</string>
     <string name="settings_github_open_failed">无法打开 GitHub 链接</string>
     <string name="export_title">数据导出</string>
-    <string name="export_hero_title">Export Center</string>
+    <string name="export_hero_title">导出中心</string>
     <string name="export_hero_desc">将核心成长数据导出为 CSV，方便课程答辩与长期归档。</string>
     <string name="export_scope_title">导出范围</string>
     <string name="export_scope_desc">任务 · 专注记录 · 倒数日</string>
@@ -239,7 +239,7 @@
     <string name="backup_failed">备份失败</string>
     <string name="backup_failed_reason">备份失败：%1$s</string>
     <string name="restore_title">本地恢复</string>
-    <string name="restore_hero_title">Restore Center</string>
+    <string name="restore_hero_title">恢复中心</string>
     <string name="restore_hero_desc">从本地 growthhub_backup.db 恢复 Growth Hub 数据。</string>
     <string name="restore_warning_title">恢复前确认</string>
     <string name="restore_warning_desc">恢复会覆盖当前本地数据库。建议先完成一次备份。</string>
@@ -259,16 +259,16 @@
     <string name="weekly_report_hero_label">本周总专注时长</string>
     <string name="weekly_report_change_up">↑ %1$d%% vs 上周</string>
     <string name="weekly_report_change_down">↓ %1$d%% vs 上周</string>
-    <string name="weekly_report_summary_title">Weekly Summary</string>
+    <string name="weekly_report_summary_title">本周总结</string>
     <string name="weekly_report_summary_body">本周完成：%1$d 次专注\n累计：%2$s\n平均每次：%3$s\n活跃天数：%4$d/7\n活跃率：%5$d%%</string>
-    <string name="weekly_report_insights_title">Insights</string>
+    <string name="weekly_report_insights_title">成长洞察</string>
     <string name="weekly_report_insights_body">最专注分类：%1$s\n最专注任务：%2$s\n最高效率日期：%3$s\n最长专注记录：%4$s</string>
-    <string name="weekly_report_achievements_title">Achievements</string>
+    <string name="weekly_report_achievements_title">本周成就</string>
     <string name="weekly_report_no_achievement">本周暂未解锁新成就，\n继续保持成长节奏。</string>
-    <string name="weekly_report_growth_title">Growth Evaluation</string>
+    <string name="weekly_report_growth_title">成长评价</string>
     <string name="weekly_report_growth_score_value">Growth Score · %1$d/100</string>
-    <string name="weekly_report_narrative_title">Weekly Narrative</string>
-    <string name="weekly_report_export_button">Export Weekly Report</string>
+    <string name="weekly_report_narrative_title">周报总结</string>
+    <string name="weekly_report_export_button">导出周报</string>
     <string name="weekly_report_export_waiting">导出为 TXT：Documents/GrowthHub/reports/</string>
     <string name="weekly_report_export_running">正在导出周报，请稍候...</string>
     <string name="weekly_report_export_success">周报导出成功</string>
@@ -288,6 +288,7 @@
     <string name="category_description_hint">描述</string>
     <string name="category_add">新增分类</string>
     <string name="category_created">已新增</string>
+    <string name="validation_category_name_required">请输入分类名称</string>
 
     <string name="task_title">任务管理</string>
     <string name="task_hero_label">任务系统</string>
@@ -307,6 +308,9 @@
     <string name="task_created">任务已创建</string>
     <string name="task_complete">标记完成</string>
     <string name="task_archive">归档任务</string>
+    <string name="validation_task_category_required">请先创建分类，再新增任务</string>
+    <string name="validation_task_title_required">请输入任务标题</string>
+    <string name="validation_tag_ids_invalid">标签 ID 只能填写数字，并用英文逗号分隔</string>
 
     <string name="tag_title">标签管理</string>
     <string name="tag_hero_label">标签库</string>
@@ -317,6 +321,7 @@
     <string name="tag_name_hint">标签名称</string>
     <string name="tag_add">新增标签</string>
     <string name="tag_delete">删除该标签</string>
+    <string name="validation_tag_name_required">请输入标签名称</string>
 
     <string name="countdown_title">倒数日</string>
     <string name="countdown_hero_label">关键日期</string>
@@ -334,6 +339,9 @@
     <string name="countdown_description_hint">描述</string>
     <string name="countdown_add">新增倒数日</string>
     <string name="countdown_item">目标：%1$s\n剩余：%2$d天\n提醒：提前%3$d天</string>
+    <string name="validation_countdown_title_required">请输入倒数日标题</string>
+    <string name="validation_countdown_date_required">请输入目标日期</string>
+    <string name="validation_countdown_date_invalid">日期格式应为 yyyy-MM-dd</string>
 
     <string name="quote_title">励志语录</string>
     <string name="quote_hero_label">今日能量</string>
@@ -345,4 +353,5 @@
     <string name="quote_input_hint">新增用户语录</string>
     <string name="quote_save">保存语录</string>
     <string name="quote_random">随机显示</string>
+    <string name="validation_quote_required">请输入语录内容</string>
 </resources>

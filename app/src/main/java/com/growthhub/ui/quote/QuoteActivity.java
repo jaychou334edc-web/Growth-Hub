@@ -37,11 +37,15 @@ public class QuoteActivity extends AppCompatActivity {
         emptyCard = findViewById(R.id.quote_empty_card);
 
         findViewById(R.id.quote_add_button).setOnClickListener(v -> {
-            if (!input.getText().toString().trim().isEmpty()) {
-                repository.addUserQuote(input.getText().toString().trim());
-                input.setText("");
-                render();
+            String quoteText = input.getText().toString().trim();
+            if (quoteText.isEmpty()) {
+                input.setError(getString(R.string.validation_quote_required));
+                input.requestFocus();
+                return;
             }
+            repository.addUserQuote(quoteText);
+            input.setText("");
+            render();
         });
         findViewById(R.id.quote_refresh_button).setOnClickListener(v -> render());
         animatePage();

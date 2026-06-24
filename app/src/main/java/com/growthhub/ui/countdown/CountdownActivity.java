@@ -60,15 +60,35 @@ public class CountdownActivity extends AppCompatActivity {
         recycler.setAdapter(adapter);
 
         findViewById(R.id.countdown_add_button).setOnClickListener(v -> {
+            String countdownTitle = title.getText().toString().trim();
+            String targetDate = date.getText().toString().trim();
+            if (countdownTitle.isEmpty()) {
+                title.setError(getString(R.string.validation_countdown_title_required));
+                title.requestFocus();
+                return;
+            }
+            if (targetDate.isEmpty()) {
+                date.setError(getString(R.string.validation_countdown_date_required));
+                date.requestFocus();
+                return;
+            }
             try {
-                Date target = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(date.getText().toString().trim());
-                if (target == null) return;
-                repository.create(title.getText().toString().trim(), target.getTime(), description.getText().toString().trim(), days.get(remind.getSelectedItemPosition()));
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                formatter.setLenient(false);
+                Date target = formatter.parse(targetDate);
+                if (target == null) {
+                    date.setError(getString(R.string.validation_countdown_date_invalid));
+                    date.requestFocus();
+                    return;
+                }
+                repository.create(countdownTitle, target.getTime(), description.getText().toString().trim(), days.get(remind.getSelectedItemPosition()));
                 title.setText("");
                 date.setText("");
                 description.setText("");
                 render();
             } catch (Exception ignored) {
+                date.setError(getString(R.string.validation_countdown_date_invalid));
+                date.requestFocus();
             }
         });
         animatePage();

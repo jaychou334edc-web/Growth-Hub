@@ -230,7 +230,7 @@ public class WeeklyReportGenerator {
         }
         builder.append("成长评级：").append(level.title).append("\n");
         builder.append("Growth Score：").append(score).append("/100\n\n");
-        builder.append("Weekly Narrative\n").append(narrative).append("\n");
+        builder.append("周报总结\n").append(narrative).append("\n");
         return builder.toString();
     }
 

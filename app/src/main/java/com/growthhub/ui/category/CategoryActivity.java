@@ -41,8 +41,13 @@ public class CategoryActivity extends AppCompatActivity {
         recycler.setAdapter(adapter);
 
         findViewById(R.id.category_add_button).setOnClickListener(v -> {
-            if (name.getText().toString().trim().isEmpty()) return;
-            repository.createCategory(name.getText().toString().trim(), description.getText().toString().trim());
+            String categoryName = name.getText().toString().trim();
+            if (categoryName.isEmpty()) {
+                name.setError(getString(R.string.validation_category_name_required));
+                name.requestFocus();
+                return;
+            }
+            repository.createCategory(categoryName, description.getText().toString().trim());
             name.setText("");
             description.setText("");
             Toast.makeText(this, R.string.category_created, Toast.LENGTH_SHORT).show();

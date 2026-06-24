@@ -71,9 +71,24 @@ public class TaskActivity extends AppCompatActivity {
         recycler.setAdapter(adapter);
 
         findViewById(R.id.task_add_button).setOnClickListener(v -> {
-            if (categories.isEmpty() || title.getText().toString().trim().isEmpty()) return;
+            String taskTitle = title.getText().toString().trim();
+            String tagText = tags.getText().toString();
+            if (categories.isEmpty()) {
+                Toast.makeText(this, R.string.validation_task_category_required, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (taskTitle.isEmpty()) {
+                title.setError(getString(R.string.validation_task_title_required));
+                title.requestFocus();
+                return;
+            }
+            if (!areTagIdsValid(tagText)) {
+                tags.setError(getString(R.string.validation_tag_ids_invalid));
+                tags.requestFocus();
+                return;
+            }
             Category category = categories.get(categorySpinner.getSelectedItemPosition());
-            repository.createTask(category.id, title.getText().toString().trim(), description.getText().toString().trim(), parseTagIds(tags.getText().toString()));
+            repository.createTask(category.id, taskTitle, description.getText().toString().trim(), parseTagIds(tagText));
             title.setText("");
             description.setText("");
             tags.setText("");
@@ -110,6 +125,19 @@ public class TaskActivity extends AppCompatActivity {
         }
         adapter.submit(displayItems);
         emptyCard.setVisibility(tasks.isEmpty() ? View.VISIBLE : View.GONE);
+    }
+
+    private boolean areTagIdsValid(String text) {
+        if (text == null || text.trim().isEmpty()) return true;
+        for (String part : text.split(",")) {
+            if (part.trim().isEmpty()) return false;
+            try {
+                Long.parseLong(part.trim());
+            } catch (NumberFormatException ignored) {
+                return false;
+            }
+        }
+        return true;
     }
 
     private List<Long> parseTagIds(String text) {
