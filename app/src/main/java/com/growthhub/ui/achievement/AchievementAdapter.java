@@ -17,8 +17,6 @@ import com.growthhub.database.entity.Achievement;
 import com.growthhub.util.TimeUtils;
 
 import java.util.List;
-import java.util.Locale;
-
 public class AchievementAdapter extends RecyclerView.Adapter<AchievementAdapter.ViewHolder> {
     private final List<DisplayItem> items;
 
@@ -96,7 +94,7 @@ public class AchievementAdapter extends RecyclerView.Adapter<AchievementAdapter.
             Context context = itemView.getContext();
             title.setText(item.achievement.title);
             description.setText(item.achievement.description);
-            tier.setText(item.tier.toUpperCase(Locale.getDefault()));
+            tier.setText(tierLabel(item.tier));
             tier.setTextColor(ContextCompat.getColor(context, item.tierColor));
             progress.setProgressCompat(item.progressPercent, true);
 
@@ -105,21 +103,21 @@ public class AchievementAdapter extends RecyclerView.Adapter<AchievementAdapter.
                 icon.setImageResource(R.drawable.ic_achievement_award);
                 icon.setColorFilter(ContextCompat.getColor(context, R.color.achievement_gold));
                 progress.setIndicatorColor(ContextCompat.getColor(context, R.color.achievement_gold));
-                state.setText("Unlocked · " + TimeUtils.formatDateTime(item.achievement.unlockTime));
+                state.setText("已解锁 · " + TimeUtils.formatDateTime(item.achievement.unlockTime));
                 state.setTextColor(ContextCompat.getColor(context, R.color.achievement_gold));
             } else if (item.nearlyUnlocked) {
                 body.setBackgroundResource(R.drawable.bg_achievement_nearly_card);
                 icon.setImageResource(R.drawable.ic_achievement_spark);
                 icon.setColorFilter(ContextCompat.getColor(context, R.color.achievement_success));
                 progress.setIndicatorColor(ContextCompat.getColor(context, R.color.achievement_success));
-                state.setText("Almost there · " + item.progressText);
+                state.setText("即将解锁 · " + item.progressText);
                 state.setTextColor(ContextCompat.getColor(context, R.color.achievement_success));
             } else {
                 body.setBackgroundResource(R.drawable.bg_achievement_locked_card);
                 icon.setImageResource(R.drawable.ic_achievement_lock);
                 icon.setColorFilter(ContextCompat.getColor(context, R.color.achievement_locked));
                 progress.setIndicatorColor(ContextCompat.getColor(context, R.color.achievement_locked));
-                state.setText("Locked · " + item.progressText);
+                state.setText("未解锁 · " + item.progressText);
                 state.setTextColor(ContextCompat.getColor(context, R.color.achievement_text_muted));
             }
         }
@@ -127,5 +125,12 @@ public class AchievementAdapter extends RecyclerView.Adapter<AchievementAdapter.
 
     private static int dp(Context context, int value) {
         return (int) (value * context.getResources().getDisplayMetrics().density);
+    }
+
+    private static String tierLabel(String tier) {
+        if ("Legend".equals(tier)) return "传奇";
+        if ("Gold".equals(tier)) return "黄金";
+        if ("Silver".equals(tier)) return "白银";
+        return "青铜";
     }
 }

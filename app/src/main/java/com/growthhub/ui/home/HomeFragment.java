@@ -110,12 +110,12 @@ public class HomeFragment extends Fragment {
 
         greeting.setText(greetingText());
         todayDuration.setText(formatDashboardDuration(todaySeconds));
-        streak.setText("Current streak · " + currentStreak(stats.recentDailyDurations(30)) + " days");
+        streak.setText("连续专注 · " + currentStreak(stats.recentDailyDurations(30)) + " 天");
         quote.setText(quoteRepository.randomQuote());
-        renderKpi(R.id.home_kpi_focus, "FOCUS TODAY", TimeUtils.formatDuration(todaySeconds));
-        renderKpi(R.id.home_kpi_tasks, "COMPLETED TASKS", String.valueOf(countCompletedTasks(tasks)));
-        renderKpi(R.id.home_kpi_activity, "ACTIVITY RATE", stats.engine().activeRate30DaysPercent() + "%");
-        renderKpi(R.id.home_kpi_achievements, "ACHIEVEMENTS", countUnlocked(achievements) + "/" + achievements.size());
+        renderKpi(R.id.home_kpi_focus, "今日专注", TimeUtils.formatDuration(todaySeconds));
+        renderKpi(R.id.home_kpi_tasks, "已完成任务", String.valueOf(countCompletedTasks(tasks)));
+        renderKpi(R.id.home_kpi_activity, "活跃率", stats.engine().activeRate30DaysPercent() + "%");
+        renderKpi(R.id.home_kpi_achievements, "成就", countUnlocked(achievements) + "/" + achievements.size());
         renderAchievement(latest);
         renderRecentFocus(recent, taskRepository);
         renderCountdown(countdowns);
@@ -134,24 +134,24 @@ public class HomeFragment extends Fragment {
 
     private void renderAchievement(Achievement latest) {
         if (latest == null) {
-            latestAchievement.setText("No achievement yet");
-            latestAchievementDesc.setText("Complete a focus session to unlock your first badge.");
+            latestAchievement.setText("暂无成就");
+            latestAchievementDesc.setText("完成一次专注即可解锁你的第一枚徽章。");
             return;
         }
         latestAchievement.setText(latest.title);
-        latestAchievementDesc.setText(latest.description == null ? "Recently unlocked" : latest.description);
+        latestAchievementDesc.setText(latest.description == null ? "最近解锁" : latest.description);
     }
 
     private void renderRecentFocus(List<FocusRecord> records, TaskRepository taskRepository) {
         recentFocusList.removeAllViews();
         LayoutInflater inflater = LayoutInflater.from(requireContext());
         if (records.isEmpty()) {
-            addTimelineItem(inflater, "No focus sessions yet", "Start a session to build your timeline.");
+            addTimelineItem(inflater, "暂无专注记录", "开始一次专注，建立你的成长时间线。");
             return;
         }
         for (FocusRecord record : records) {
             TaskItem task = taskRepository.getTask(record.taskId);
-            String title = task == null ? "Focus Session" : task.title;
+            String title = task == null ? "专注记录" : task.title;
             String meta = TimeUtils.formatDuration(record.duration) + " · " + TimeUtils.formatDateTime(record.startTime);
             addTimelineItem(inflater, title, meta);
         }
@@ -174,15 +174,15 @@ public class HomeFragment extends Fragment {
             }
         }
         if (next == null) {
-            countdownTitle.setText("Countdown Highlight");
+            countdownTitle.setText("倒数日提醒");
             countdownDays.setText("--");
-            countdownMeta.setText("No upcoming event. Add one to keep a target in sight.");
+            countdownMeta.setText("暂无即将到来的事项。添加一个目标，让计划更清晰。");
             return;
         }
         long days = Math.max(0, (next.targetDate - TimeUtils.startOfToday()) / (24L * 60L * 60L * 1000L));
         countdownTitle.setText(next.title);
         countdownDays.setText(String.valueOf(days));
-        countdownMeta.setText("days left · " + TimeUtils.formatDate(next.targetDate));
+        countdownMeta.setText("剩余天数 · " + TimeUtils.formatDate(next.targetDate));
     }
 
     private int countCompletedTasks(List<TaskItem> tasks) {
@@ -215,9 +215,9 @@ public class HomeFragment extends Fragment {
 
     private String greetingText() {
         int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-        if (hour < 12) return "Good Morning";
-        if (hour < 18) return "Good Afternoon";
-        return "Good Evening";
+        if (hour < 12) return "早上好";
+        if (hour < 18) return "下午好";
+        return "晚上好";
     }
 
     private String formatDashboardDuration(long seconds) {

@@ -140,13 +140,13 @@ public class AchievementActivity extends AppCompatActivity {
         int total = achievements.size();
         int percent = total == 0 ? 0 : unlocked * 100 / total;
         unlockedCount.setText(String.format(Locale.getDefault(), "%d / %d", unlocked, total));
-        progressLabel.setText(percent + "% complete");
+        progressLabel.setText("完成 " + percent + "%");
         raritySummary.setText(String.format(Locale.getDefault(),
-                "Bronze %d · Silver %d · Gold %d · Legend %d", bronze, silver, gold, legend));
+                "青铜 %d · 白银 %d · 黄金 %d · 传奇 %d", bronze, silver, gold, legend));
         if (rarestUnlocked == null) {
-            rareUnlocked.setText("Rarest unlocked: Complete your first focus session to claim a badge.");
+            rareUnlocked.setText("稀有成就：完成第一次专注即可领取徽章。");
         } else {
-            rareUnlocked.setText("Rarest unlocked: " + rarestUnlocked.tier + " · " + rarestUnlocked.achievement.title);
+            rareUnlocked.setText("稀有成就：" + tierLabel(rarestUnlocked.tier) + " · " + rarestUnlocked.achievement.title);
         }
         progressRing.animateTo(percent);
     }
@@ -161,8 +161,8 @@ public class AchievementActivity extends AppCompatActivity {
         }
 
         if (next == null) {
-            nextTitle.setText("All awards unlocked");
-            nextProgress.setText("Every current achievement has been claimed.");
+            nextTitle.setText("已解锁全部奖章");
+            nextProgress.setText("当前所有成就都已领取。");
             nextBar.setProgressCompat(100, true);
             return;
         }
@@ -174,10 +174,10 @@ public class AchievementActivity extends AppCompatActivity {
 
     private void renderCategories(List<AchievementAdapter.DisplayItem> items) {
         categoriesRow.removeAllViews();
-        addCategory("Focus Time", countByType(items, AchievementCondition.TOTAL_SECONDS));
-        addCategory("Consistency", countByType(items, AchievementCondition.ACTIVE_RATE_PERCENT));
-        addCategory("Task Completion", 0);
-        addCategory("Special Milestones", countByType(items, AchievementCondition.FIRST_FOCUS));
+        addCategory("专注时长", countByType(items, AchievementCondition.TOTAL_SECONDS));
+        addCategory("持续性", countByType(items, AchievementCondition.ACTIVE_RATE_PERCENT));
+        addCategory("任务完成", 0);
+        addCategory("特殊里程碑", countByType(items, AchievementCondition.FIRST_FOCUS));
     }
 
     private void addCategory(String title, int count) {
@@ -189,7 +189,7 @@ public class AchievementActivity extends AppCompatActivity {
         chip.setGravity(android.view.Gravity.CENTER_VERTICAL);
         chip.setMinWidth(dp(154));
         chip.setPadding(dp(16), 0, dp(16), 0);
-        chip.setText(title + "\n" + count + " awards");
+        chip.setText(title + "\n" + count + " 枚奖章");
         chip.setTextColor(ContextCompat.getColor(this, R.color.achievement_text_primary));
         chip.setTextSize(14);
         chip.setTypeface(chip.getTypeface(), android.graphics.Typeface.BOLD);
@@ -210,7 +210,7 @@ public class AchievementActivity extends AppCompatActivity {
         Collections.sort(unlocked, (left, right) -> Long.compare(right.unlockTime, left.unlockTime));
         LayoutInflater inflater = LayoutInflater.from(this);
         if (unlocked.isEmpty()) {
-            addTimelineItem(inflater, "No unlocks yet", "Finish a focus session to start your awards timeline.");
+            addTimelineItem(inflater, "暂无解锁记录", "完成一次专注，开启你的奖章时间线。");
             return;
         }
         int limit = Math.min(5, unlocked.size());
@@ -251,12 +251,12 @@ public class AchievementActivity extends AppCompatActivity {
         long target = achievement.conditionValue;
         long remaining = Math.max(0, target - current);
         if (achievement.conditionType == AchievementCondition.TOTAL_SECONDS) {
-            return formatHours(current) + " / " + formatHours(target) + " · " + formatHours(remaining) + " remaining";
+            return formatHours(current) + " / " + formatHours(target) + " · 还差 " + formatHours(remaining);
         }
         if (achievement.conditionType == AchievementCondition.ACTIVE_RATE_PERCENT) {
-            return current + "% / " + target + "% · " + remaining + "% remaining";
+            return current + "% / " + target + "% · 还差 " + remaining + "%";
         }
-        return current + " / " + target + " sessions · " + remaining + " remaining";
+        return current + " / " + target + " 次专注 · 还差 " + remaining;
     }
 
     private String tierName(Achievement achievement) {
@@ -285,6 +285,13 @@ public class AchievementActivity extends AppCompatActivity {
         if ("Gold".equals(tier)) return 3;
         if ("Silver".equals(tier)) return 2;
         return 1;
+    }
+
+    private String tierLabel(String tier) {
+        if ("Legend".equals(tier)) return "传奇";
+        if ("Gold".equals(tier)) return "黄金";
+        if ("Silver".equals(tier)) return "白银";
+        return "青铜";
     }
 
     private String formatHours(long seconds) {

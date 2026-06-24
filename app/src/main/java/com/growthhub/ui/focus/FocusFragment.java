@@ -62,11 +62,11 @@ public class FocusFragment extends Fragment {
                 long remaining = intent.getLongExtra(AppActions.EXTRA_REMAINING, 0);
                 timerText.setText(formatHeroDuration(remaining));
                 statusText.setText("专注进行中");
-                timerCaption.setText("Stay in flow");
+                timerCaption.setText("保持心流");
             } else if (AppActions.ACTION_FOCUS_FINISH.equals(intent.getAction())) {
                 timerText.setText("专注完成");
                 statusText.setText("专注记录已生成");
-                timerCaption.setText("Session complete");
+                timerCaption.setText("本轮专注已完成");
                 animateFinish();
                 Toast.makeText(context, "专注记录已生成", Toast.LENGTH_SHORT).show();
             }
@@ -104,20 +104,20 @@ public class FocusFragment extends Fragment {
         });
         pause.setOnClickListener(v -> {
             statusText.setText("已暂停");
-            timerCaption.setText("Pause, then return");
+            timerCaption.setText("稍作停顿，再回到节奏");
             animatePause();
             sendAction(AppActions.ACTION_FOCUS_PAUSE);
         });
         resume.setOnClickListener(v -> {
             statusText.setText("继续专注");
-            timerCaption.setText("Back to flow");
+            timerCaption.setText("回到心流");
             animateStart();
             sendAction(AppActions.ACTION_FOCUS_RESUME);
         });
         stop.setOnClickListener(v -> showFinishDialog());
         cancel.setOnClickListener(v -> {
             statusText.setText("已放弃本轮专注");
-            timerCaption.setText("Ready when you are");
+            timerCaption.setText("准备好后随时开始");
             sendAction(AppActions.ACTION_FOCUS_CANCEL);
         });
         animateEntrance(root);
@@ -208,7 +208,7 @@ public class FocusFragment extends Fragment {
             requireContext().startService(intent);
         }
         statusText.setText("专注进行中");
-        timerCaption.setText(mode == FocusMode.COUNTUP ? "Counting up" : "Counting down");
+        timerCaption.setText(mode == FocusMode.COUNTUP ? "正计时中" : "倒计时中");
     }
 
     private void sendAction(String action) {
@@ -222,7 +222,7 @@ public class FocusFragment extends Fragment {
         box.setOrientation(LinearLayout.VERTICAL);
         Spinner moodSpinner = new Spinner(requireContext());
         moodSpinner.setAdapter(new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_dropdown_item,
-                new String[]{"GREAT", "GOOD", "NORMAL", "BAD"}));
+                new String[]{"很棒", "良好", "普通", "较差"}));
         moodSpinner.setSelection(2);
         TextInputLayout noteLayout = new TextInputLayout(requireContext());
         noteLayout.setHint("专注备注，可为空");

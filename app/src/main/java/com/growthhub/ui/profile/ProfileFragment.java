@@ -120,7 +120,7 @@ public class ProfileFragment extends Fragment {
         };
         for (int id : ids) {
             root.findViewById(id).setOnClickListener(v ->
-                    Toast.makeText(requireContext(), "Coming in V2.2", Toast.LENGTH_SHORT).show());
+                    Toast.makeText(requireContext(), "V2.2 即将上线", Toast.LENGTH_SHORT).show());
         }
     }
 
@@ -148,12 +148,12 @@ public class ProfileFragment extends Fragment {
         growthLevel.setText("Level " + level + " · " + levelTitle(level));
         growthScore.setText("Growth Score · " + score);
         totalFocus.setText(formatHeroDuration(totalSeconds));
-        currentStreak.setText("Streak · " + streak + " days");
-        achievementCount.setText(unlocked + "/" + achievements.size() + " awards");
-        statFocus.setText("Focus Time\n" + formatHeroDuration(totalSeconds));
-        statSessions.setText("Sessions\n" + sessions);
-        statActive.setText("Active Rate\n" + activeRate + "%");
-        statCategories.setText("Categories\n" + categories);
+        currentStreak.setText("连续专注 · " + streak + " 天");
+        achievementCount.setText(unlocked + "/" + achievements.size() + " 枚成就");
+        statFocus.setText("专注时长\n" + formatHeroDuration(totalSeconds));
+        statSessions.setText("专注次数\n" + sessions);
+        statActive.setText("活跃率\n" + activeRate + "%");
+        statCategories.setText("分类\n" + categories);
 
         renderSummary(statisticsRepository, focusRepository);
         renderAchievementSnapshot(achievementDao, unlocked, achievements.size());
@@ -164,22 +164,22 @@ public class ProfileFragment extends Fragment {
         StatItem bestDay = bestDay(statisticsRepository.recentDailyDurations(30));
         FocusRecord longest = longestSession(focusRepository.getRecent(500));
 
-        summaryCategory.setText("Most Focused Category · " +
-                (category == null ? "No data" : category.label + " · " + formatCompactDuration(category.value)));
-        summaryDay.setText("Most Productive Day · " +
-                (bestDay == null ? "No data" : bestDay.label + " · " + formatCompactDuration(bestDay.value)));
-        summaryLongest.setText("Longest Session · " +
-                (longest == null ? "No data" : formatCompactDuration(longest.duration) + " · " + TimeUtils.formatDateTime(longest.startTime)));
+        summaryCategory.setText("最专注分类 · " +
+                (category == null ? "暂无数据" : category.label + " · " + formatCompactDuration(category.value)));
+        summaryDay.setText("最高效日期 · " +
+                (bestDay == null ? "暂无数据" : bestDay.label + " · " + formatCompactDuration(bestDay.value)));
+        summaryLongest.setText("最长专注 · " +
+                (longest == null ? "暂无数据" : formatCompactDuration(longest.duration) + " · " + TimeUtils.formatDateTime(longest.startTime)));
     }
 
     private void renderAchievementSnapshot(AchievementDao achievementDao, int unlocked, int total) {
         Achievement latest = achievementDao.getLatestUnlocked();
-        achievementTitle.setText("Achievement Snapshot");
+        achievementTitle.setText("成就快照");
         if (latest == null) {
-            achievementDesc.setText(unlocked + "/" + total + " unlocked · Complete focus sessions to earn your first award.");
+            achievementDesc.setText("已解锁 " + unlocked + "/" + total + " · 完成专注即可获得第一枚成就。");
             return;
         }
-        achievementDesc.setText(unlocked + "/" + total + " unlocked · Latest: " + latest.title);
+        achievementDesc.setText("已解锁 " + unlocked + "/" + total + " · 最新：" + latest.title);
     }
 
     private int currentStreak(List<StatItem> days) {
@@ -205,10 +205,13 @@ public class ProfileFragment extends Fragment {
     }
 
     private String levelTitle(int level) {
-        if (level >= 20) return "Future Builder";
-        if (level >= 12) return "Deep Work Architect";
-        if (level >= 6) return "Consistent Builder";
-        return "Starter";
+        if (level >= 7) return "专注大师";
+        if (level >= 6) return "深度工作者";
+        if (level >= 5) return "成长探索者";
+        if (level >= 4) return "持续成长者";
+        if (level >= 3) return "稳定建设者";
+        if (level >= 2) return "专注学习者";
+        return "初学者";
     }
 
     private StatItem first(List<StatItem> items) {

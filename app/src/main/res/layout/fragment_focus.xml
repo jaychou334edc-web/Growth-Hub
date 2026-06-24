@@ -19,7 +19,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Focus"
+            android:text="专注"
             android:textColor="@color/focus_text_primary"
             android:textSize="32sp"
             android:textStyle="bold" />
@@ -80,7 +80,7 @@
                         android:layout_marginTop="12dp"
                         android:gravity="center"
                         android:maxLines="2"
-                        android:text="Deep work session"
+                        android:text="深度专注"
                         android:textColor="@color/focus_text_secondary"
                         android:textSize="15sp" />
                 </LinearLayout>
@@ -107,7 +107,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="CURRENT TASK"
+                    android:text="当前任务"
                     android:textColor="@color/focus_text_muted"
                     android:textSize="14sp" />
 
@@ -216,7 +216,7 @@
                         android:layout_width="0dp"
                         android:layout_height="48dp"
                         android:layout_weight="1"
-                        android:text="Countdown"
+                        android:text="倒计时"
                         android:textColor="@color/focus_text_primary"
                         app:cornerRadius="18dp"
                         app:strokeColor="@color/focus_glass_stroke" />
@@ -227,7 +227,7 @@
                         android:layout_width="0dp"
                         android:layout_height="48dp"
                         android:layout_weight="1"
-                        android:text="Count Up"
+                        android:text="正计时"
                         android:textColor="@color/focus_text_primary"
                         app:cornerRadius="18dp"
                         app:strokeColor="@color/focus_glass_stroke" />
@@ -266,7 +266,7 @@
                 android:id="@+id/focus_start"
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
-                android:text="Start Focus"
+                android:text="开始专注"
                 android:textSize="17sp"
                 app:backgroundTint="@color/focus_timer_start"
                 app:cornerRadius="22dp" />
@@ -284,7 +284,7 @@
                     android:layout_height="56dp"
                     android:layout_marginEnd="6dp"
                     android:layout_weight="1"
-                    android:text="Pause"
+                    android:text="暂停"
                     android:textColor="@color/focus_text_primary"
                     app:cornerRadius="20dp"
                     app:strokeColor="@color/focus_glass_stroke" />
@@ -296,7 +296,7 @@
                     android:layout_height="56dp"
                     android:layout_marginStart="6dp"
                     android:layout_weight="1"
-                    android:text="Resume"
+                    android:text="继续"
                     android:textColor="@color/focus_text_primary"
                     app:cornerRadius="20dp"
                     app:strokeColor="@color/focus_glass_stroke" />
@@ -307,7 +307,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:layout_marginTop="8dp"
-                android:text="Finish Session"
+                android:text="结束专注"
                 app:backgroundTint="@color/focus_timer_end"
                 app:cornerRadius="20dp" />
 
@@ -317,7 +317,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_marginTop="4dp"
-                android:text="Cancel"
+                android:text="取消"
                 android:textColor="@color/focus_danger" />
         </LinearLayout>
     </LinearLayout>

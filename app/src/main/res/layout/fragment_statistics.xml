@@ -39,7 +39,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Analytics"
+                    android:text="数据洞察"
                     android:textColor="@color/stat_text_secondary"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -64,7 +64,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Total Focus Time"
+                    android:text="累计专注时长"
                     android:textColor="@color/stat_text_secondary"
                     android:textSize="16sp" />
 
@@ -78,7 +78,7 @@
                     android:minWidth="148dp"
                     android:paddingStart="16dp"
                     android:paddingEnd="16dp"
-                    android:text="No weekly trend yet"
+                    android:text="暂无周趋势"
                     android:textColor="@color/stat_text_primary"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -136,7 +136,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Weekly Focus Trend"
+                    android:text="本周专注趋势"
                     android:textColor="@color/stat_text_primary"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -169,7 +169,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Activity Heatmap"
+                    android:text="活跃热力图"
                     android:textColor="@color/stat_text_primary"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -188,7 +188,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="22dp"
-            android:text="Insights"
+            android:text="洞察"
             android:textColor="@color/stat_text_primary"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -279,7 +279,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Achievement Progress"
+                        android:text="成就进度"
                         android:textColor="@color/stat_text_primary"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -324,7 +324,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Focus Distribution"
+                    android:text="专注分布"
                     android:textColor="@color/stat_text_primary"
                     android:textSize="20sp"
                     android:textStyle="bold" />

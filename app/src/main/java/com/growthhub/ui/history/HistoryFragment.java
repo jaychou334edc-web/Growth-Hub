@@ -90,21 +90,21 @@ public class HistoryFragment extends Fragment {
             total += record.duration;
             longest = Math.max(longest, record.duration);
             TaskItem task = tasks.get(record.taskId);
-            String taskName = task == null ? "Focus Session" : task.title;
-            String category = task == null ? "Uncategorized" : categories.getOrDefault(task.categoryId, "Uncategorized");
+            String taskName = task == null ? "专注记录" : task.title;
+            String category = task == null ? "未分类" : categories.getOrDefault(task.categoryId, "未分类");
             allItems.add(new HistoryTimelineAdapter.DisplayItem(
                     record.startTime,
                     taskName,
                     category,
                     formatCompactDuration(record.duration),
                     TimeUtils.formatDateTime(record.startTime),
-                    Mood.label(record.mood),
+                    moodLabel(record.mood),
                     notePreview(record.note)
             ));
         }
         totalFocus.setText(formatHeroDuration(total));
-        totalSessions.setText(records.size() + " sessions");
-        longestSession.setText("Longest · " + formatCompactDuration(longest));
+        totalSessions.setText(records.size() + " 次专注");
+        longestSession.setText("最长 · " + formatCompactDuration(longest));
     }
 
     private void applyFilter(int checkedId) {
@@ -145,6 +145,13 @@ public class HistoryFragment extends Fragment {
         String trimmed = note.trim();
         if (trimmed.length() <= 72) return trimmed;
         return trimmed.substring(0, 72) + "...";
+    }
+
+    private String moodLabel(int mood) {
+        if (mood == Mood.GREAT) return "很棒";
+        if (mood == Mood.GOOD) return "良好";
+        if (mood == Mood.BAD) return "较差";
+        return "普通";
     }
 
     private String formatHeroDuration(long seconds) {

@@ -31,7 +31,7 @@
                 android:layout_width="72dp"
                 android:layout_height="48dp"
                 android:minWidth="48dp"
-                android:text="Back"
+                android:text="返回"
                 android:textColor="@color/achievement_text_secondary"
                 android:textSize="14sp"
                 app:cornerRadius="18dp" />
@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
-                android:text="Achievement Center"
+                android:text="成就中心"
                 android:textColor="@color/achievement_text_primary"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -69,7 +69,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Growth Awards"
+                    android:text="成长奖章"
                     android:textColor="@color/achievement_text_secondary"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -107,7 +107,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:text="0% complete"
+                            android:text="完成 0%"
                             android:textColor="@color/achievement_gold"
                             android:textSize="22sp"
                             android:textStyle="bold" />
@@ -165,7 +165,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Next Target"
+                    android:text="下一个目标"
                     android:textColor="@color/achievement_text_primary"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -205,7 +205,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Categories"
+            android:text="成就分类"
             android:textColor="@color/achievement_text_primary"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -230,7 +230,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Awards"
+            android:text="奖章"
             android:textColor="@color/achievement_text_primary"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -263,7 +263,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Recent Unlocks"
+                    android:text="最近解锁"
                     android:textColor="@color/achievement_text_primary"
                     android:textSize="20sp"
                     android:textStyle="bold" />
